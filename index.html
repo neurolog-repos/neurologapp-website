@@ -1,0 +1,1407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>neurolog - Longitudinal Event Data</title>
+  <meta name="description" content="neurolog is developing tools for longitudinal event logging and wearable health data summaries for episodic conditions.">
+  <style>
+    :root {
+      --ink: #111316;
+      --muted: #5d646c;
+      --line: #dce3e7;
+      --paper: #fbfaf7;
+      --surface: #ffffff;
+      --panel: #f2f5f5;
+      --teal: #16786f;
+      --teal-dark: #0d514b;
+      --blue: #2f5f9f;
+      --indigo: #273c85;
+      --red: #b85757;
+      --amber: #b5792e;
+      --violet: #6b5b95;
+      --purple: #7654b8;
+      --green: #3c8465;
+    }
+
+    * {
+      box-sizing: border-box;
+      min-width: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-shell {
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .nav {
+      position: fixed;
+      z-index: 20;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      height: 72px;
+      padding: 0 clamp(20px, 5vw, 72px);
+      background: rgba(251, 250, 247, 0.9);
+      border-bottom: 1px solid rgba(17, 19, 22, 0.08);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 740;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+
+    .brand-mark {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: inline-grid;
+      place-items: center;
+      background: transparent;
+      overflow: hidden;
+    }
+
+    .brand-mark::before,
+    .brand-mark::after {
+      display: none;
+    }
+
+    .brand-mark svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      color: #3f464d;
+      font-size: 14px;
+      font-weight: 620;
+    }
+
+    .nav-links a {
+      padding: 8px 0;
+    }
+
+    .nav-cta,
+    .button {
+      border: 1px solid var(--ink);
+      border-radius: 8px;
+      background: var(--ink);
+      color: #fff;
+      font-weight: 720;
+      font-size: 14px;
+      line-height: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 0 16px;
+      white-space: nowrap;
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--ink);
+      border-color: rgba(17, 19, 22, 0.28);
+    }
+
+    .hero {
+      min-height: min(74vh, 700px);
+      position: relative;
+      padding: 112px clamp(20px, 5vw, 72px) 64px;
+      display: grid;
+      align-items: center;
+      overflow: hidden;
+      background:
+        linear-gradient(180deg, rgba(251,250,247,0.18), rgba(251,250,247,0.94) 80%),
+        linear-gradient(135deg, rgba(47,95,159,0.16), rgba(118,84,184,0.14) 48%, rgba(22,120,111,0.12)),
+        #eef2f2;
+    }
+
+    .hero-product {
+      position: absolute;
+      inset: 86px clamp(18px, 7vw, 120px) 7vh auto;
+      width: min(380px, 34vw);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0.96;
+      pointer-events: none;
+    }
+
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 720;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .metric-caption {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+
+    .phone-screen {
+      background: var(--surface);
+      border: 1px solid rgba(17, 19, 22, 0.09);
+      border-radius: 8px;
+    }
+
+    .pill {
+      height: 26px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 9px;
+      font-size: 11px;
+      font-weight: 760;
+      white-space: nowrap;
+    }
+
+    .pill.red { background: #f5e6e6; color: #963e3e; }
+    .pill.blue { background: #e5edf6; color: #274d78; }
+    .pill.green { background: #e4f0ea; color: #286b4e; }
+
+    .phone-wrap {
+      align-self: center;
+      justify-self: center;
+      width: min(290px, 100%);
+      aspect-ratio: 0.49;
+      border-radius: 34px;
+      padding: 10px;
+      background: #111316;
+      box-shadow: 0 26px 70px rgba(17, 19, 22, 0.22);
+    }
+
+    .hero-phone {
+      width: min(340px, 100%);
+      transform: rotate(2deg);
+      box-shadow: 0 38px 94px rgba(22, 26, 40, 0.28);
+    }
+
+    .phone-screen {
+      height: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      background: #f8faf9;
+      border: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .landing-screen {
+      color: #ffffff;
+      border: 0;
+      padding: 30px 22px 24px;
+      justify-content: space-between;
+      background:
+        linear-gradient(160deg, rgba(255,255,255,0.16), rgba(255,255,255,0) 34%),
+        linear-gradient(140deg, #203c87 0%, #6e4ab0 54%, #16817b 100%);
+    }
+
+    .phone-status {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 12px;
+      font-weight: 720;
+    }
+
+    .landing-brand {
+      display: grid;
+      gap: 12px;
+      justify-items: center;
+      text-align: center;
+      margin-top: 48px;
+    }
+
+    .landing-mark {
+      width: 58px;
+      height: 58px;
+      border: 1.5px solid rgba(255, 255, 255, 0.76);
+      border-radius: 14px;
+      position: relative;
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .landing-mark::before,
+    .landing-mark::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      right: 12px;
+      top: 23px;
+      border-top: 2px solid #ffffff;
+      transform-origin: center;
+    }
+
+    .landing-mark::before {
+      transform: rotate(-18deg);
+    }
+
+    .landing-mark::after {
+      top: 33px;
+      transform: rotate(18deg);
+    }
+
+    .landing-wordmark {
+      font-size: 35px;
+      line-height: 1;
+      font-weight: 800;
+    }
+
+    .landing-subtitle {
+      max-width: 220px;
+      color: rgba(255, 255, 255, 0.74);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .login-panel {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .login-field,
+    .login-button {
+      min-height: 48px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .login-field {
+      color: rgba(255, 255, 255, 0.72);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    .login-button {
+      justify-content: center;
+      color: #17203a;
+      background: #ffffff;
+    }
+
+    .login-note {
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 11px;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .hero-copy {
+      position: relative;
+      z-index: 2;
+      width: min(760px, 100%);
+      padding: clamp(36px, 6vh, 72px) 0 0;
+    }
+
+    .eyebrow {
+      color: var(--teal-dark);
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 13px;
+    }
+
+    h1 {
+      font-size: clamp(54px, 10vw, 118px);
+      line-height: 0.9;
+      letter-spacing: 0;
+      margin: 0;
+      font-weight: 820;
+      text-wrap: balance;
+    }
+
+    .hero-copy p {
+      width: min(660px, 100%);
+      margin: 24px 0 0;
+      color: #30363a;
+      font-size: clamp(18px, 2vw, 24px);
+      line-height: 1.36;
+      font-weight: 520;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .section {
+      padding: clamp(58px, 7vw, 98px) clamp(20px, 5vw, 72px);
+      border-top: 1px solid rgba(17, 19, 22, 0.1);
+    }
+
+    .section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      min-width: 0;
+    }
+
+    .section-heading {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 18px;
+      align-items: start;
+      margin-bottom: 36px;
+      min-width: 0;
+    }
+
+    .section-heading > *,
+    .split-grid > *,
+    .portal-title > *,
+    .team-grid > * {
+      min-width: 0;
+    }
+
+    h2 {
+      font-size: clamp(30px, 3.8vw, 46px);
+      line-height: 1.06;
+      margin: 0;
+      letter-spacing: 0;
+      overflow-wrap: break-word;
+      text-wrap: balance;
+    }
+
+    .section-heading p,
+    .section-copy p,
+    .wide-copy {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.62;
+      max-width: 840px;
+    }
+
+    .section-copy {
+      display: grid;
+      gap: 14px;
+      max-width: 900px;
+    }
+
+    .capability-columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: clamp(24px, 5vw, 64px);
+      border-top: 1px solid rgba(17, 19, 22, 0.14);
+      padding-top: 28px;
+    }
+
+    .capability {
+      min-width: 0;
+    }
+
+    .capability h3,
+    .split h3,
+    .contact h3 {
+      font-size: 22px;
+      line-height: 1.12;
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    .capability h3 {
+      border-top: 3px solid var(--teal);
+      padding-top: 16px;
+    }
+
+    .capability:nth-child(2) h3 {
+      border-top-color: var(--blue);
+    }
+
+    .capability:nth-child(3) h3 {
+      border-top-color: var(--purple);
+    }
+
+    .capability p,
+    .split p,
+    .contact p {
+      color: var(--muted);
+      margin: 14px 0 0;
+      font-size: 15px;
+    }
+
+    .split-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .split {
+      border: 1px solid rgba(17, 19, 22, 0.12);
+      border-radius: 8px;
+      background: var(--surface);
+      min-height: 370px;
+      padding: 24px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    .mini-product {
+      margin-top: 24px;
+      min-height: 210px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: #f5f7f7;
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-row {
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 14px;
+      align-items: center;
+      font-size: 13px;
+    }
+
+    .mini-row small {
+      color: var(--muted);
+      display: block;
+      margin-top: 2px;
+    }
+
+    .screen-pill {
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 720;
+      background: #e5edf6;
+      color: #274d78;
+      white-space: nowrap;
+    }
+
+    .screen-pill.green {
+      background: #e4f0ea;
+      color: #286b4e;
+    }
+
+    .mockup-stage {
+      margin-top: 24px;
+      min-height: 360px;
+      border-radius: 8px;
+      border: 1px solid rgba(17, 19, 22, 0.08);
+      background:
+        linear-gradient(135deg, rgba(47, 95, 159, 0.12), rgba(118, 84, 184, 0.08) 50%, rgba(22, 120, 111, 0.12)),
+        #f5f7f7;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .image-stage {
+      min-height: 390px;
+      padding: clamp(22px, 4vw, 42px);
+    }
+
+    .product-shot {
+      display: block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      object-fit: contain;
+    }
+
+    .mobile-shot {
+      width: min(230px, 78%);
+      border-radius: 28px;
+      box-shadow: 0 26px 64px rgba(17, 19, 22, 0.24);
+    }
+
+    .dashboard-shot {
+      width: min(100%, 760px);
+      border-radius: 14px;
+      box-shadow: 0 24px 58px rgba(17, 19, 22, 0.18);
+    }
+
+    .portal-stage {
+      align-items: center;
+    }
+
+    .phone-device {
+      position: relative;
+      width: min(242px, 100%);
+      aspect-ratio: 0.49;
+      border-radius: 34px;
+      padding: 10px;
+      background: #111316;
+      box-shadow: 0 24px 60px rgba(17, 19, 22, 0.23);
+    }
+
+    .patient-phone {
+      transform: rotate(-2deg);
+    }
+
+    .phone-speaker {
+      position: absolute;
+      z-index: 2;
+      top: 19px;
+      left: 50%;
+      width: 58px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateX(-50%);
+    }
+
+    .app-screen {
+      height: 100%;
+      border-radius: 26px;
+      overflow: hidden;
+      padding: 18px;
+      display: grid;
+      grid-template-rows: auto auto auto auto auto 1fr;
+      gap: 10px;
+      background: #f9fbfa;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+    }
+
+    .phone-meta,
+    .app-tabs,
+    .wearable-strip {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .phone-meta {
+      font-size: 11px;
+      font-weight: 780;
+      color: #2f363a;
+      padding: 0 4px;
+    }
+
+    .app-header strong {
+      display: block;
+      margin-top: 10px;
+      font-size: 19px;
+      line-height: 1.1;
+    }
+
+    .app-header small,
+    .event-card small,
+    .timeline-entry small,
+    .wearable-strip small {
+      color: var(--muted);
+      display: block;
+    }
+
+    .wearables-heading {
+      color: var(--teal-dark);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .mock-action {
+      min-height: 44px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--indigo), var(--purple) 55%, var(--teal));
+      font-size: 14px;
+      font-weight: 780;
+    }
+
+    .event-card {
+      border-radius: 16px;
+      background: #ffffff;
+      border: 1px solid rgba(17, 19, 22, 0.08);
+      padding: 14px;
+      display: grid;
+      gap: 11px;
+    }
+
+    .severity-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 6px;
+    }
+
+    .severity-dot {
+      height: 32px;
+      border-radius: 999px;
+      background: #eef3f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5d646c;
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .severity-dot.active {
+      background: #e5edf6;
+      color: #274d78;
+      box-shadow: inset 0 0 0 1px rgba(47, 95, 159, 0.16);
+    }
+
+    .app-tabs {
+      font-size: 11px;
+      font-weight: 760;
+      color: var(--muted);
+    }
+
+    .app-tabs span:first-child {
+      color: var(--teal-dark);
+    }
+
+    .mini-timeline {
+      display: grid;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .timeline-entry {
+      display: grid;
+      grid-template-columns: 9px 1fr;
+      gap: 8px;
+      align-items: start;
+      font-size: 12px;
+      color: #2f363a;
+    }
+
+    .timeline-entry::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      margin-top: 5px;
+      border-radius: 999px;
+      background: var(--green);
+    }
+
+    .timeline-entry.purple::before {
+      background: var(--purple);
+    }
+
+    .wearable-strip {
+      border-radius: 14px;
+      padding: 11px 12px;
+      background: #e4f0ea;
+      color: #286b4e;
+      font-size: 12px;
+      font-weight: 760;
+    }
+
+    .browser-mockup {
+      width: 100%;
+      min-width: 0;
+      min-height: 320px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid rgba(17, 19, 22, 0.1);
+      box-shadow: 0 22px 50px rgba(17, 19, 22, 0.12);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .browser-bar {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      background: #eef3f5;
+      border-bottom: 1px solid rgba(17, 19, 22, 0.08);
+    }
+
+    .browser-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .browser-dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: #b8c2c9;
+    }
+
+    .browser-url {
+      min-width: 0;
+      height: 22px;
+      border-radius: 999px;
+      background: #ffffff;
+      color: #7c858e;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: 700;
+      flex: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .portal-layout {
+      display: grid;
+      grid-template-columns: 126px minmax(0, 1fr);
+      flex: 1;
+      min-height: 282px;
+      min-width: 0;
+    }
+
+    .portal-sidebar {
+      border-right: 1px solid rgba(17, 19, 22, 0.08);
+      background: #f6f8f8;
+      padding: 16px 12px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .sidebar-item {
+      border-radius: 8px;
+      padding: 9px 10px;
+      color: #5d646c;
+      font-size: 12px;
+      font-weight: 720;
+    }
+
+    .sidebar-item.active {
+      color: #274d78;
+      background: #e5edf6;
+    }
+
+    .portal-main {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      min-width: 0;
+    }
+
+    .portal-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .portal-title strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .portal-date {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 720;
+    }
+
+    .export-button {
+      min-height: 30px;
+      border: 1px solid rgba(47, 95, 159, 0.3);
+      border-radius: 8px;
+      background: #e5edf6;
+      color: #274d78;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .patient-search {
+      min-height: 32px;
+      border-radius: 8px;
+      border: 1px solid rgba(17, 19, 22, 0.09);
+      background: #f6f8f8;
+      color: #7c858e;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: 11px;
+      font-weight: 720;
+    }
+
+    .patient-detail-table {
+      display: grid;
+      grid-template-columns: 78px minmax(0, 1fr);
+      gap: 0 14px;
+      padding: 8px 0;
+      border-top: 1px solid rgba(17, 19, 22, 0.08);
+      border-bottom: 1px solid rgba(17, 19, 22, 0.08);
+    }
+
+    .patient-detail-table span,
+    .patient-detail-table strong {
+      display: block;
+      padding: 4px 0;
+      border-bottom: 1px solid rgba(17, 19, 22, 0.06);
+      font-size: 11px;
+      line-height: 1.2;
+    }
+
+    .patient-detail-table span {
+      color: var(--muted);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .patient-detail-table strong {
+      color: var(--ink);
+      font-weight: 820;
+    }
+
+    .patient-detail-table span:nth-last-child(-n + 2),
+    .patient-detail-table strong:nth-last-child(-n + 2) {
+      border-bottom: 0;
+    }
+
+    .cohort-check {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #286b4e;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    .checkbox-mark {
+      width: 12px;
+      height: 12px;
+      border: 1.5px solid #3c8465;
+      border-radius: 3px;
+      position: relative;
+      flex: 0 0 auto;
+      background: #e4f0ea;
+    }
+
+    .checkbox-mark::after {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 1px;
+      width: 4px;
+      height: 7px;
+      border-right: 1.5px solid #286b4e;
+      border-bottom: 1.5px solid #286b4e;
+      transform: rotate(42deg);
+    }
+
+    .report-section-title {
+      color: var(--ink);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: 0.02em;
+    }
+
+    .review-window {
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 760;
+    }
+
+    .date-control {
+      min-height: 24px;
+      border-radius: 7px;
+      border: 1px solid rgba(47, 95, 159, 0.25);
+      background: #ffffff;
+      color: #274d78;
+      padding: 0 8px;
+      font-size: 10px;
+      font-weight: 800;
+    }
+
+    .event-chart {
+      border-radius: 10px;
+      border: 1px solid rgba(17, 19, 22, 0.08);
+      background: #fbfcfc;
+      padding: 8px 8px 6px;
+    }
+
+    .event-chart svg {
+      display: block;
+      width: 100%;
+      height: 88px;
+    }
+
+    .chart-label {
+      fill: #7c858e;
+      font-size: 9px;
+      font-weight: 700;
+    }
+
+    .chart-axis {
+      stroke: rgba(17, 19, 22, 0.16);
+      stroke-width: 1;
+    }
+
+    .chart-grid {
+      stroke: rgba(17, 19, 22, 0.08);
+      stroke-width: 1;
+    }
+
+    .portal-insight-list {
+      display: grid;
+      gap: 0;
+      border-top: 1px solid rgba(17, 19, 22, 0.08);
+    }
+
+    .portal-insight-row {
+      padding: 8px 0 9px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      font-size: 11px;
+      color: #3f464d;
+      border-bottom: 1px solid rgba(17, 19, 22, 0.08);
+    }
+
+    .portal-insight-row:last-child {
+      border-bottom: 0;
+    }
+
+    .portal-insight-row span {
+      display: block;
+      color: #3f464d;
+      font-weight: 520;
+      line-height: 1.2;
+    }
+
+    .portal-insight-row strong {
+      color: #274d78;
+      font-size: 12px;
+      line-height: 1.2;
+      font-weight: 850;
+      text-align: right;
+    }
+
+    .collaboration-band {
+      background:
+        linear-gradient(135deg, rgba(39, 60, 133, 0.74), rgba(17, 19, 22, 0.96) 46%, rgba(13, 81, 75, 0.84)),
+        #111316;
+      color: #fff;
+    }
+
+    .collaboration-band .section-heading p,
+    .collaboration-band .wide-copy {
+      color: rgba(255, 255, 255, 0.68);
+    }
+
+    .collaboration-detail {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 34px clamp(34px, 6vw, 82px);
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 34px;
+    }
+
+    .collaboration-item {
+      min-width: 0;
+      padding-left: 18px;
+      border-left: 2px solid #8fd3be;
+    }
+
+    .collaboration-item:nth-child(2) {
+      border-left-color: #84a9df;
+    }
+
+    .collaboration-item:nth-child(3) {
+      border-left-color: #bca5e6;
+    }
+
+    .collaboration-item:nth-child(4) {
+      border-left-color: #68c2b5;
+    }
+
+    .collaboration-item h3 {
+      font-size: 19px;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    .collaboration-item p {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 14px;
+    }
+
+    .about-band {
+      background:
+        linear-gradient(135deg, rgba(229, 237, 246, 0.82), rgba(228, 240, 234, 0.78) 58%, rgba(238, 232, 247, 0.82)),
+        #f5f7f6;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: minmax(280px, 0.7fr) minmax(320px, 1fr);
+      gap: clamp(28px, 7vw, 96px);
+      align-items: start;
+    }
+
+    .about-copy {
+      display: grid;
+      gap: 18px;
+    }
+
+    .about-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .team-member {
+      border-radius: 8px;
+      border: 1px solid rgba(17, 19, 22, 0.11);
+      background: rgba(255, 255, 255, 0.72);
+      padding: 18px;
+      min-height: 198px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .avatar {
+      width: 74px;
+      height: 74px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #e5edf6, #e4f0ea);
+      color: var(--teal-dark);
+      font-weight: 820;
+      font-size: 21px;
+    }
+
+    .avatar.purple {
+      color: #51378c;
+      background: linear-gradient(135deg, #eee8f7, #e5edf6);
+    }
+
+    .team-member strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .team-role {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 26px;
+      align-items: start;
+      max-width: 920px;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px clamp(20px, 5vw, 72px);
+      border-top: 1px solid rgba(17, 19, 22, 0.1);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 980px) {
+      .nav-links {
+        display: none;
+      }
+
+      .hero {
+        min-height: min(76vh, 640px);
+        padding-top: 98px;
+      }
+
+      .hero-product {
+        inset: 98px 22px auto auto;
+        width: min(310px, 42vw);
+      }
+
+      .hero-phone {
+        transform: rotate(1deg);
+      }
+
+      .section-heading,
+      .split-grid,
+      .about-grid,
+      .contact {
+        grid-template-columns: 1fr;
+      }
+
+      .capability-columns,
+      .collaboration-detail {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        height: 64px;
+        padding: 0 18px;
+      }
+
+      .nav-cta {
+        margin-left: auto;
+        min-height: 38px;
+        font-size: 13px;
+        padding: 0 12px;
+      }
+
+      .hero {
+        min-height: min(70vh, 560px);
+        padding: 86px 18px 36px;
+      }
+
+      .hero-copy,
+      .section-inner {
+        width: 100%;
+        max-width: calc(100vw - 36px);
+      }
+
+      .hero-product {
+        inset: 76px -32px auto auto;
+        width: 228px;
+        opacity: 0.72;
+      }
+
+      .capability-columns {
+        gap: 26px;
+      }
+
+      .mockup-stage {
+        min-height: 320px;
+        padding: 16px;
+      }
+
+      .patient-phone {
+        transform: none;
+      }
+
+      .portal-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .portal-sidebar {
+        display: none;
+      }
+
+      .portal-title {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: clamp(52px, 18vw, 86px);
+      }
+
+      .hero-copy p {
+        font-size: 17px;
+      }
+
+      .eyebrow,
+      .hero-copy p,
+      .section-heading p,
+      .section-copy p,
+      .wide-copy,
+      .capability p,
+      .split p,
+      .contact p,
+      .contact-item {
+        max-width: 100%;
+        overflow-wrap: break-word;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="site-shell">
+    <header class="nav" aria-label="Site navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="36 52 168 128" focusable="false">
+            <rect x="44" y="60" width="152" height="112" rx="18" fill="#6b5b95"/>
+            <rect x="64" y="80" width="112" height="72" rx="13" fill="#2f5f9f"/>
+            <rect x="84" y="100" width="72" height="32" rx="10" fill="#3c8465"/>
+          </svg>
+        </span>
+        <span>neurolog</span>
+      </a>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="about.html">About</a>
+      </nav>
+      <a class="nav-cta" href="mailto:contact@neurolog.com.au">Contact us</a>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <h1 id="hero-title">neurolog</h1>
+        </div>
+      </section>
+
+
+
+      <section id="platform" class="section">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2>Capturing the time between appointments.</h2>
+            <div class="section-copy">
+              <p>Epilepsy and other episodic neurological conditions are often managed through brief clinic appointments months apart. Clinicians have to rely on what patients can remember, which can be subjective, incomplete and skewed toward recent events.</p>
+              <p>That makes it difficult to see patterns or know whether a treatment change is working.</p>
+              <p>Neurolog helps close that gap by empowering patients to log symptoms and sync wearable health data over time, back to clinicians and researchers for review.</p>
+              
+            </div>
+          </div>
+        </div>
+      </section>
+      
+
+      <section id="workflow" class="section">
+        <div class="section-inner">
+
+          <div class="split-grid">
+            <article id="patients" class="split">
+              <h3>For patients</h3>
+              <p>A mobile app for logging events, symptoms, medication and syncing to consumer wearable devices like Apple Watch. We generate data insights to help patients better understand their condition and engage with their care.</p>
+              <div class="mockup-stage image-stage">
+                <img class="product-shot mobile-shot" src="MobileApp.png" alt="Mobile app mockup showing patient event logging" loading="lazy">
+              </div>
+            </article>
+
+            <article id="portal" class="split">
+              <h3>For clinicians and research teams</h3>
+              <p>Our portal provides access to individual patient and cohort-level views summarising patient event statistics and wearable data trends around events, with filtering, editable review windows and data export functionality.</p>
+              <div class="mockup-stage image-stage portal-stage">
+                <img class="product-shot dashboard-shot" src="Dashboard.png" alt="Clinician dashboard mockup showing patient events and wearable summary data" loading="lazy">
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="research" class="section collaboration-band">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2>Empowering patients, clinicians and researchers with longitudinal data</h2>
+          </div>
+
+          <div class="collaboration-detail">
+            <article class="collaboration-item">
+              <h3>Study-fit logging</h3>
+              <p>Event logging flows can be shaped around the target condition, symptoms, study protocol and the intended review cadence.</p>
+            </article>
+            <article class="collaboration-item">
+              <h3>Wearable-aware summaries</h3>
+              <p>Logged events can be reviewed alongside sleep, activity, heart rate and other wearable data.</p>
+            </article>
+            <article class="collaboration-item">
+              <h3>Deployment support</h3>
+              <p>For eligible collaborations, we can support HIPAA-aligned conversations, BAAs, data processing terms, ethics materials and region-specific deployment planning.</p>
+            </article>
+            <article class="collaboration-item">
+              <h3>Clinical boundary</h3>
+              <p>Neurolog supports structured data capture and review, but does not replace clinical judgement. It is not for emergency monitoring and does not provide diagnosis or treatment advice.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="section">
+        <div class="section-inner contact">
+          <div>
+            <h2>Work with us.</h2>
+            <p class="wide-copy">We are interested in clinical, research and health technology collaborations where longitudinal event data would change what teams can see between visits. Our platform is targeted at <i>episodic</i> neurological, psychiatric and related health conditions. We are currently working to conduct feedback studies, perform prototype deployments and build clinician-facing report workflows in collaboration witih our partners. </p>
+            <div class="hero-actions">
+              <a class="button" href="mailto:contact@neurolog.com.au">contact@neurolog.com.au</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>(c) 2026 Neurolog Pty Ltd</span>
+    </footer>
+  </div>
+</body>
+</html>
