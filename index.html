@@ -7,6 +7,9 @@
   <title>neurolog - Longitudinal Event Data</title>
   <meta name="description"
     content="neurolog is developing tools for longitudinal event logging and wearable health data summaries for episodic conditions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
       --ink: #111316;
@@ -39,7 +42,7 @@
       margin: 0;
       background: var(--paper);
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
       letter-spacing: 0;
     }
@@ -95,7 +98,7 @@
       display: none;
     }
 
-    .brand-mark svg {
+    .brand-mark img {
       width: 100%;
       height: 100%;
       display: block;
@@ -126,6 +129,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       min-height: 42px;
       padding: 0 16px;
       white-space: nowrap;
@@ -490,6 +494,70 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
+    }
+
+    .insights-band {
+      background: var(--panel);
+    }
+
+    .insights-list {
+      margin-top: 8px;
+      border-top: 1px solid rgba(17, 19, 22, 0.14);
+    }
+
+    .insight-row {
+      display: flex;
+      align-items: center;
+      gap: clamp(28px, 6vw, 72px);
+      padding: clamp(30px, 5vw, 46px) 0;
+      border-bottom: 1px solid rgba(17, 19, 22, 0.14);
+    }
+
+    .insight-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .insight-media {
+      flex: 1 1 380px;
+      max-width: 460px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: #111316;
+      border: 1px solid rgba(17, 19, 22, 0.1);
+      box-shadow: 0 20px 46px rgba(17, 19, 22, 0.14);
+    }
+
+    .insight-media img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .insight-copy {
+      flex: 1 1 320px;
+      min-width: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .insight-index {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      color: var(--teal-dark);
+    }
+
+    .insight-copy p {
+      margin: 0;
+      color: var(--ink);
+      font-size: clamp(17px, 2vw, 20px);
+      line-height: 1.5;
+      font-weight: 520;
+      max-width: 620px;
+    }
+
+    .hero-scroll-cue {
+      gap: 8px;
     }
 
     .mini-product {
@@ -1216,6 +1284,20 @@
       .collaboration-detail {
         grid-template-columns: 1fr;
       }
+
+      .insight-row,
+      .insight-row.reverse {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .insight-media {
+        max-width: 100%;
+      }
+
+      .insight-copy p {
+        max-width: 100%;
+      }
     }
 
     @media (max-width: 640px) {
@@ -1311,24 +1393,23 @@
     <header class="nav" aria-label="Site navigation">
       <a class="brand" href="index.html">
         <span class="brand-mark" aria-hidden="true">
-          <svg viewBox="36 52 168 128" focusable="false">
-            <rect x="44" y="60" width="152" height="112" rx="18" fill="#6b5b95" />
-            <rect x="64" y="80" width="112" height="72" rx="13" fill="#2f5f9f" />
-            <rect x="84" y="100" width="72" height="32" rx="10" fill="#3c8465" />
-          </svg>
+          <img src="neurolog-logo-mint-violet.svg" alt="" width="32" height="32">
         </span>
         <span>neurolog</span>
       </a>
       <nav class="nav-links" aria-label="Primary">
         <a href="about.html">About</a>
       </nav>
-      <a class="nav-cta" href="mailto:contact@neurolog.com.au">Contact us</a>
+      <a class="nav-cta" href="mailto:contact@neurologapp.com">Contact us</a>
     </header>
 
     <main>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
           <h1 id="hero-title">neurolog</h1>
+          <p>A free companion mobile app and clinical dashboard for tracking symptoms, medication and wearable data,
+            built
+            for people with episodic neurological conditions.</p>
         </div>
       </section>
 
@@ -1340,9 +1421,9 @@
             <h2>Take control of your condition through long-term symptom tracking, smartwatch syncing and data-driven
               insights.</h2>
             <div class="section-copy">
-              <p>Neurolog is a free, easy-to-use companion mobile app and clinical dashboard that empowers people with
-                episodic neurological conditions (such as epilepsy, migrane and post-traumatic stress disorder) to take
-                control of their health journey. Neurolog allows you to track symptoms, medication adherence, sleep,
+              <p>Our software platform empowers people with
+                episodic neurological conditions (such as epilepsy, migraine and post-traumatic stress disorder) to take
+                control of their health journey. neurolog allows you to track symptoms, medication adherence, sleep,
                 stress and activity. This data can be shared with your clinician, helping them to better understand the
                 impact of treatment changes and identify patterns.</p>
             </div>
@@ -1350,16 +1431,77 @@
         </div>
       </section>
 
+      <section id="insights" class="section insights-band">
+        <div class="section-inner">
+          <div class="section-heading">
+            <h2>Personalised insights at your fingertips</h2>
+            <div class="section-copy">
+              <p>Neurolog combines self-reported symptom and medication tracking with wearable data to provide
+                personalised insights into your condition,
+                helping you to understand patterns and trends over time.</p>
+            </div>
+          </div>
+
+          <div class="insights-list">
+            <article class="insight-row">
+              <div class="insight-media">
+                <img src="01.png" alt="neurolog app screens showing wearable connections and event logging"
+                  loading="lazy">
+              </div>
+              <div class="insight-copy">
+                <span class="insight-index">01</span>
+                <p>Log symptoms and neurological events through the neurolog app, and sync with your regular smartwatch.
+                </p>
+              </div>
+            </article>
+
+            <article class="insight-row reverse">
+              <div class="insight-media">
+                <img src="02.png" alt="neurolog app screens showing sleep health and seizure pattern insights"
+                  loading="lazy">
+              </div>
+              <div class="insight-copy">
+                <span class="insight-index">02</span>
+                <p>Spot patterns in your data. Set medication and logging reminders.</p>
+              </div>
+            </article>
+
+            <article class="insight-row">
+              <div class="insight-media">
+                <img src="03.png" alt="neurolog clinician dashboard showing patient overview" loading="lazy">
+              </div>
+              <div class="insight-copy">
+                <span class="insight-index">03</span>
+                <p>Share data with your clinician via our portal, so they can make informed decisions.</p>
+              </div>
+            </article>
+
+            <article class="insight-row reverse">
+              <div class="insight-media">
+                <img src="04.png" alt="neurolog research dashboard showing participant data" loading="lazy">
+              </div>
+              <div class="insight-copy">
+                <span class="insight-index">04</span>
+                <p>Utilise higher-quality, objective longitudinal data for neurology research.</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
 
       <section id="workflow" class="section">
         <div class="section-inner">
+          <div class="section-heading">
+            <h2>Built for patients, clinicians and researchers</h2>
+          </div>
 
           <div class="split-grid">
             <article id="patients" class="split">
               <h3>For patients</h3>
               <p>A mobile app for tracking neurological events, symptoms, medication adherence and wearable data. We
                 generate data insights to help people better understand their condition and provide more meaningful
-                insights for clinicians.</p>
+                insights to support patients' journeys to optimal health.</p>
               <div class="mockup-stage image-stage">
                 <img class="product-shot mobile-shot" src="MobileApp.png"
                   alt="Mobile app mockup showing patient event logging" loading="lazy">
@@ -1369,7 +1511,7 @@
             <article id="portal" class="split">
               <h3>For clinicians and research teams</h3>
               <p>Our clinical dashboard provides access to individual patient and cohort-level views, summarising
-                patient data over time.</p>
+                patient data over time for both clinicians and researchers.</p>
               <div class="mockup-stage image-stage portal-stage">
                 <img class="product-shot dashboard-shot" src="Dashboard.png"
                   alt="Clinician dashboard mockup showing patient events and wearable summary data" loading="lazy">
@@ -1382,12 +1524,12 @@
       <section id="contact" class="section">
         <div class="section-inner contact">
           <div>
-            <h2>Contact us.</h2>
-            <p>We are a team of researchers, engineers and entrepreunrs, passionate about
-              using digital health to transform neurology care, and more objective, better quality data for research. We
-              would love to hear from you if you are interested in collaborating with us.</p>
+            <h2>Contact us</h2>
+            <p>We are a team of researchers, engineers and entrepreneurs, passionate about using digital health to
+              transform neurology care and generate more objective, better quality data for research. We would love to
+              hear from you if you are interested in collaborating with us.</p>
             <div class="hero-actions">
-              <a class="button" href="mailto:contact@neurolog.com.au">contact@neurolog.com.au</a>
+              <a class="button" href="mailto:contact@neurologapp.com">contact@neurologapp.com</a>
             </div>
           </div>
         </div>

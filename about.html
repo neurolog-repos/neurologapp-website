@@ -5,7 +5,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>About neurolog</title>
-  <meta name="description" content="About page">
+  <meta name="description"
+    content="Meet the neurolog team — researchers, engineers and clinicians building tools for people with episodic neurological conditions.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
   <style>
     :root {
       --ink: #111316;
@@ -30,7 +35,7 @@
       margin: 0;
       background: var(--paper);
       color: var(--ink);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Manrope, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.5;
       letter-spacing: 0;
       overflow-x: hidden;
@@ -81,7 +86,7 @@
       display: none;
     }
 
-    .brand-mark svg {
+    .brand-mark img {
       width: 100%;
       height: 100%;
       display: block;
@@ -242,7 +247,7 @@
 
     .advisor-card {
       display: grid;
-      grid-template-columns: 74px minmax(0, 1fr);
+      grid-template-columns: 84px minmax(0, 1fr);
       gap: 0 18px;
       align-items: start;
     }
@@ -262,21 +267,20 @@
     }
 
     .avatar {
-      width: 74px;
-      height: 74px;
+      width: 84px;
+      height: 84px;
+      flex: 0 0 auto;
       border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #e5edf6, #e4f0ea);
-      color: var(--teal-dark);
-      font-weight: 820;
-      font-size: 21px;
+      overflow: hidden;
+      background: #e8ebec;
     }
 
-    .avatar.purple {
-      color: #51378c;
-      background: linear-gradient(135deg, #eee8f7, #e5edf6);
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(1);
     }
 
     .member h3 {
@@ -380,38 +384,35 @@
   <header class="nav" aria-label="Site navigation">
     <a class="brand" href="index.html">
       <span class="brand-mark" aria-hidden="true">
-        <svg viewBox="36 52 168 128" focusable="false">
-          <rect x="44" y="60" width="152" height="112" rx="18" fill="#6b5b95" />
-          <rect x="64" y="80" width="112" height="72" rx="13" fill="#2f5f9f" />
-          <rect x="84" y="100" width="72" height="32" rx="10" fill="#3c8465" />
-        </svg>
+        <img src="neurolog-logo-mint-violet.svg" alt="" width="32" height="32">
       </span>
       <span>neurolog</span>
     </a>
     <nav class="nav-links" aria-label="Primary">
       <a href="about.html">About</a>
     </nav>
-    <a class="nav-cta" href="mailto:contact@neurolog.com.au">Contact us</a>
+    <a class="nav-cta" href="mailto:contact@neurologapp.com">Contact us</a>
   </header>
 
   <main>
     <section class="hero" aria-labelledby="about-title">
       <div class="hero-inner">
-        <h1 id="about-title">Our vision is to digitally transform neurology care with ongoing data-driven insights and
-          tracking.</h1>
+        <h1 id="about-title">Our vision</h1>
+        <p>Digitally transform neurology care with ongoing data-driven insights and
+          tracking.</p>
       </div>
     </section>
 
     <section class="section" aria-labelledby="team-title">
       <div class="section-inner">
         <div class="intro-grid team-intro">
-          <h2 id="team-title">Leadership Team</h2>
+          <h2 id="team-title">Team</h2>
         </div>
 
         <div class="founder-grid">
           <article class="team-profile">
             <div class="profile-head">
-              <div class="avatar">R</div>
+              <div class="avatar"><img src="team/rachel-bw.jpg" alt="Dr Rachel Stirling" loading="lazy"></div>
               <div>
                 <h3>Dr Rachel Stirling</h3>
                 <p class="role">CEO</p>
@@ -421,39 +422,42 @@
 
           <article class="team-profile">
             <div class="profile-head">
-              <div class="avatar purple">M</div>
+              <div class="avatar"><img src="team/michaela-bw.jpg" alt="Dr Michaela Vranic-Peters" loading="lazy">
+              </div>
               <div>
                 <h3>Dr Michaela Vranic-Peters</h3>
                 <p class="role">CTO</p>
               </div>
             </div>
           </article>
-        </div>
 
-        <h2 class="advisors-heading">Advisors</h2>
-
-        <div class="advisor-grid">
-          <article class="advisor-card">
-            <div class="avatar">D</div>
-            <div>
-              <h3>Dr Dean Freestone</h3>
-              <p class="role">Advisor</p>
+          <article class="team-profile">
+            <div class="profile-head">
+              <div class="avatar"><img src="team/dean-bw.jpg" alt="Dr Dean Freestone" loading="lazy"></div>
+              <div>
+                <h3>Dr Dean Freestone</h3>
+                <p class="role">Advisor</p>
+              </div>
             </div>
           </article>
 
-          <article class="advisor-card">
-            <div class="avatar purple">B</div>
-            <div>
-              <h3>Prof Benjamin Brinkmann</h3>
-              <p class="role">Advisor</p>
+          <article class="team-profile">
+            <div class="profile-head">
+              <div class="avatar"><img src="team/ben-bw.jpg" alt="Prof Benjamin Brinkmann" loading="lazy"></div>
+              <div>
+                <h3>Prof Benjamin Brinkmann</h3>
+                <p class="role">Advisor</p>
+              </div>
             </div>
           </article>
 
-          <article class="advisor-card">
-            <div class="avatar purple">P</div>
-            <div>
-              <h3>A/Prof Pip Karoly</h3>
-              <p class="role">Advisor</p>
+          <article class="team-profile">
+            <div class="profile-head">
+              <div class="avatar"><img src="team/pip-bw.jpg" alt="A/Prof Pip Karoly" loading="lazy"></div>
+              <div>
+                <h3>A/Prof Pip Karoly</h3>
+                <p class="role">Advisor</p>
+              </div>
             </div>
           </article>
         </div>
@@ -464,11 +468,11 @@
       <div class="section-inner intro-grid">
         <h2>Contact us.</h2>
         <div class="copy-stack">
-          <p>We are a team of researchers, engineers and entrepreunrs, passionate about
-            using digital health to transform neurology care, and more objective, better quality data for research. We
-            would love to hear from you if you are interested in collaborating with us.</p>
+          <p>We are a team of researchers, engineers and entrepreneurs, passionate about using digital health to
+            transform neurology care and generate more objective, better quality data for research. We would love to
+            hear from you if you are interested in collaborating with us.</p>
           <div class="actions">
-            <a class="button" href="mailto:contact@neurolog.com.au">contact@neurolog.com.au</a>
+            <a class="button" href="mailto:contact@neurologapp.com">contact@neurologapp.com</a>
           </div>
         </div>
       </div>

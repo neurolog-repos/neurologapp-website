@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="none" role="img" aria-labelledby="neurologLogoTitle">
+  <title id="neurologLogoTitle">Neurolog logo</title>
+  <defs>
+    <linearGradient id="mintVioletOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9e6e"/>
+      <stop offset="100%" stop-color="#5b21b6"/>
+    </linearGradient>
+    <linearGradient id="mintVioletMid" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a8a5e"/>
+      <stop offset="100%" stop-color="#4c1d95"/>
+    </linearGradient>
+    <linearGradient id="mintVioletInner" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9e6e"/>
+      <stop offset="100%" stop-color="#6d28d9"/>
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-90 100 100)">
+    <circle cx="100" cy="100" r="86" stroke="url(#mintVioletOuter)" stroke-width="14.4" stroke-linecap="round" stroke-dasharray="405.27 135.09" fill="none"/>
+    <circle cx="100" cy="100" r="86" stroke="url(#mintVioletOuter)" stroke-width="2.59" stroke-linecap="round" stroke-dasharray="135.09 405.27" stroke-dashoffset="-405.27" fill="none"/>
+    <circle cx="100" cy="100" r="60" stroke="url(#mintVioletMid)" stroke-width="12.6" stroke-linecap="round" stroke-dasharray="125.54 251.45" fill="none"/>
+    <circle cx="100" cy="100" r="60" stroke="url(#mintVioletMid)" stroke-width="2.27" stroke-linecap="round" stroke-dasharray="251.45 125.54" stroke-dashoffset="-125.54" fill="none"/>
+    <circle cx="100" cy="100" r="36" stroke="url(#mintVioletInner)" stroke-width="10.8" stroke-linecap="round" stroke-dasharray="141.37 84.82" fill="none"/>
+    <circle cx="100" cy="100" r="36" stroke="url(#mintVioletInner)" stroke-width="1.94" stroke-linecap="round" stroke-dasharray="84.82 141.37" stroke-dashoffset="-141.37" fill="none"/>
+  </g>
+</svg>
