@@ -142,16 +142,25 @@
     }
 
     .hero {
-      min-height: min(74vh, 700px);
+      min-height: min(78vh, 760px);
       position: relative;
       padding: 112px clamp(20px, 5vw, 72px) 64px;
       display: grid;
-      align-items: center;
+      place-items: center;
       overflow: hidden;
       background:
-        linear-gradient(180deg, rgba(251, 250, 247, 0.18), rgba(251, 250, 247, 0.94) 80%),
-        linear-gradient(135deg, rgba(47, 95, 159, 0.16), rgba(118, 84, 184, 0.14) 48%, rgba(22, 120, 111, 0.12)),
-        #eef2f2;
+        linear-gradient(90deg, rgba(60, 132, 101, 0.12), transparent 30%, transparent 70%, rgba(118, 84, 184, 0.12)),
+        linear-gradient(180deg, #f7f8f5 0%, var(--paper) 100%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--green) 0 33.333%, var(--blue) 33.333% 66.666%, var(--purple) 66.666%);
     }
 
     .hero-product {
@@ -346,8 +355,19 @@
     .hero-copy {
       position: relative;
       z-index: 2;
-      width: min(760px, 100%);
-      padding: clamp(36px, 6vh, 72px) 0 0;
+      width: min(980px, 100%);
+      margin: 0 auto;
+      padding: clamp(26px, 5vh, 58px) 0 0;
+      display: grid;
+      justify-items: center;
+      text-align: center;
+    }
+
+    .hero-mark {
+      width: clamp(82px, 9vw, 126px);
+      height: auto;
+      margin-bottom: 24px;
+      filter: drop-shadow(0 16px 26px rgba(72, 54, 128, 0.12));
     }
 
     .eyebrow {
@@ -369,12 +389,39 @@
     }
 
     .hero-copy p {
-      width: min(660px, 100%);
+      width: min(760px, 100%);
       margin: 24px 0 0;
       color: #30363a;
       font-size: clamp(18px, 2vw, 24px);
       line-height: 1.36;
       font-weight: 520;
+    }
+
+    .hero-copy .hero-support {
+      width: min(680px, 100%);
+      margin-top: 14px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.55;
+      font-weight: 500;
+    }
+
+    .hero-scroll-cue {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 34px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid rgba(17, 19, 22, 0.34);
+      color: #30363a;
+      font-size: 13px;
+      font-weight: 720;
+    }
+
+    .hero-scroll-cue span:last-child {
+      color: var(--teal);
+      font-size: 17px;
+      line-height: 1;
     }
 
     .hero-actions {
@@ -544,7 +591,7 @@
       font-size: 12px;
       font-weight: 800;
       letter-spacing: 0.06em;
-      color: var(--teal-dark);
+      color: var(--purple);
     }
 
     .insight-copy p {
@@ -554,10 +601,6 @@
       line-height: 1.5;
       font-weight: 520;
       max-width: 620px;
-    }
-
-    .hero-scroll-cue {
-      gap: 8px;
     }
 
     .mini-product {
@@ -1260,7 +1303,7 @@
       }
 
       .hero {
-        min-height: min(76vh, 640px);
+        min-height: min(78vh, 680px);
         padding-top: 98px;
       }
 
@@ -1314,8 +1357,13 @@
       }
 
       .hero {
-        min-height: min(70vh, 560px);
+        min-height: min(76vh, 610px);
         padding: 86px 18px 36px;
+      }
+
+      .hero-mark {
+        width: 76px;
+        margin-bottom: 18px;
       }
 
       .hero-copy,
@@ -1364,6 +1412,10 @@
         font-size: 17px;
       }
 
+      .hero-copy .hero-support {
+        font-size: 14px;
+      }
+
       .eyebrow,
       .hero-copy p,
       .section-heading p,
@@ -1406,10 +1458,15 @@
     <main>
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-copy">
+          <img class="hero-mark" src="neurolog-logo-mint-violet.svg" alt="" width="126" height="126">
           <h1 id="hero-title">neurolog</h1>
-          <p>A free companion mobile app and clinical dashboard for tracking symptoms, medication and wearable data,
-            built
-            for people with episodic neurological conditions.</p>
+          <p>Understand what happens between appointments.</p>
+          <p class="hero-support">Patient-reported events and wearable data, brought together for people living with
+            episodic neurological conditions, their clinicians and research teams.</p>
+          <a class="hero-scroll-cue" href="#platform">
+            <span>Explore the platform</span>
+            <span aria-hidden="true">&#8595;</span>
+          </a>
         </div>
       </section>
 
@@ -1418,14 +1475,11 @@
       <section id="platform" class="section">
         <div class="section-inner">
           <div class="section-heading">
-            <h2>Take control of your condition through long-term symptom tracking, smartwatch syncing and data-driven
-              insights.</h2>
+            <h2>Life happens between appointments.</h2>
             <div class="section-copy">
-              <p>Our software platform empowers people with
-                episodic neurological conditions (such as epilepsy, migraine and post-traumatic stress disorder) to take
-                control of their health journey. neurolog allows you to track symptoms, medication adherence, sleep,
-                stress and activity. This data can be shared with your clinician, helping them to better understand the
-                impact of treatment changes and identify patterns.</p>
+              <p>Neurolog captures events, symptoms, medication and everyday health data over time. Patients can better
+                understand their own patterns and share a more complete picture with their clinician, while researchers
+                can work with higher-quality longitudinal data.</p>
             </div>
           </div>
         </div>
@@ -1449,7 +1503,7 @@
                   loading="lazy">
               </div>
               <div class="insight-copy">
-                <span class="insight-index">01</span>
+                <span class="insight-index">Patient app</span>
                 <p>Log symptoms and neurological events through the neurolog app, and sync with your regular smartwatch.
                 </p>
               </div>
@@ -1461,7 +1515,7 @@
                   loading="lazy">
               </div>
               <div class="insight-copy">
-                <span class="insight-index">02</span>
+                <span class="insight-index">Personal insights</span>
                 <p>Spot patterns in your data. Set medication and logging reminders.</p>
               </div>
             </article>
@@ -1471,7 +1525,7 @@
                 <img src="03.png" alt="neurolog clinician dashboard showing patient overview" loading="lazy">
               </div>
               <div class="insight-copy">
-                <span class="insight-index">03</span>
+                <span class="insight-index">Clinical portal</span>
                 <p>Share data with your clinician via our portal, so they can make informed decisions.</p>
               </div>
             </article>
@@ -1481,7 +1535,7 @@
                 <img src="04.png" alt="neurolog research dashboard showing participant data" loading="lazy">
               </div>
               <div class="insight-copy">
-                <span class="insight-index">04</span>
+                <span class="insight-index">Research</span>
                 <p>Utilise higher-quality, objective longitudinal data for neurology research.</p>
               </div>
             </article>
