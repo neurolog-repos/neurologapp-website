@@ -113,10 +113,6 @@ select {
   padding: clamp(48px, 6vw, 88px) var(--gutter);
 }
 
-.section--tight {
-  padding: clamp(36px, 4vw, 56px) var(--gutter);
-}
-
 .section--flush {
   padding: 0;
 }
@@ -563,33 +559,6 @@ select {
   color: var(--ink);
 }
 
-.steps {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  margin-top: 44px;
-  border-top: 2px solid var(--rule);
-}
-
-.steps > div {
-  padding: 24px 28px 28px;
-  border-right: 1px solid var(--hair);
-}
-
-.steps > div:first-child {
-  padding-left: 0;
-}
-
-.steps > div:last-child {
-  padding-right: 0;
-  border-right: 0;
-}
-
-.steps .h3 {
-  margin: 10px 0;
-  font-size: 20px;
-  line-height: 1.2;
-}
-
 .feature-grid {
   width: min(1240px, 100%);
   margin: 0 auto;
@@ -697,9 +666,9 @@ select {
 
 .team-strip {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 20px;
-  overflow-x: auto;
-  overflow-y: hidden;
   margin-top: 36px;
   padding: 28px 0 18px;
   border-top: 1px solid var(--hair);
@@ -707,6 +676,7 @@ select {
 
 .team-strip > div {
   flex: 0 0 200px;
+  text-align: center;
 }
 
 .team-strip img {
@@ -734,6 +704,11 @@ select {
   margin-top: 28px;
   padding-top: 28px;
   border-top: 1px solid var(--hair);
+  justify-items: center;
+}
+
+.founders .founder {
+  max-width: 480px;
 }
 
 .founder {
@@ -757,9 +732,10 @@ select {
 }
 
 .advisors {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px 40px;
   margin-top: 28px;
   padding-top: 28px;
   border-top: 1px solid var(--hair);
@@ -769,6 +745,7 @@ select {
   display: flex;
   align-items: center;
   gap: 16px;
+  flex: 0 0 auto;
 }
 
 .advisor img {
@@ -797,20 +774,31 @@ select {
   height: auto;
 }
 
-.cta-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 44px;
+  border-top: 2px solid var(--rule);
 }
 
-.cta-bar p {
-  font-family: var(--font-head);
-  font-size: clamp(20px, 2.2vw, 28px);
+.pillars > div {
+  padding: 24px 28px 28px;
+  border-right: 1px solid var(--hair);
+}
+
+.pillars > div:first-child {
+  padding-left: 0;
+}
+
+.pillars > div:last-child {
+  padding-right: 0;
+  border-right: 0;
+}
+
+.pillars .h3 {
+  margin: 10px 0;
+  font-size: 20px;
   line-height: 1.2;
-  letter-spacing: -.025em;
-  max-width: 34ch;
 }
 
 /* Waitlist ---------------------------------------------------------------- */
@@ -1044,24 +1032,24 @@ select {
 @media (max-width: 1019px) {
   .audience-grid,
   .feature-grid,
-  .steps {
+  .pillars {
     grid-template-columns: minmax(0, 1fr);
   }
 
   .audience-card,
   .feature-grid > div,
-  .steps > div {
+  .pillars > div {
     border-right: 0;
     border-bottom: 1px solid var(--hair);
   }
 
   .audience-card:last-child,
   .feature-grid > div:last-child,
-  .steps > div:last-child {
+  .pillars > div:last-child {
     border-bottom: 0;
   }
 
-  .steps > div {
+  .pillars > div {
     padding: 24px 0 28px;
   }
 }

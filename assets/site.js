@@ -53,6 +53,25 @@
     });
   }
 
+  function confirmationFor(roles) {
+    var patient = roles.indexOf('Patient') !== -1;
+    var demo =
+      roles.indexOf('Clinician') !== -1 || roles.indexOf('Researcher') !== -1;
+
+    if (patient && demo) {
+      return 'Thanks for your enquiry. We will be in touch once our mobile app is ' +
+        'available for pilot testing, and to organise a demo.';
+    }
+    if (patient) {
+      return 'Thanks for your enquiry. We will be in touch once our mobile app is ' +
+        'available for pilot testing.';
+    }
+    if (demo) {
+      return 'Thanks for your enquiry. We will be in touch to organise a demo.';
+    }
+    return 'Thanks for your enquiry. We will be in touch.';
+  }
+
   function setupWaitlistForm() {
     var form = document.querySelector('[data-waitlist-form]');
     if (!form) return;
@@ -68,6 +87,7 @@
       var roles = data.getAll('role');
       data.delete('role');
       data.set('role', roles.join(', '));
+      var message = confirmationFor(roles);
 
       if (button) {
         button.disabled = true;
@@ -84,7 +104,10 @@
         })
         .then(function () {
           form.reset();
-          if (confirmation) confirmation.hidden = false;
+          if (confirmation) {
+            confirmation.textContent = message;
+            confirmation.hidden = false;
+          }
           if (button) {
             button.disabled = false;
             button.textContent = label;
