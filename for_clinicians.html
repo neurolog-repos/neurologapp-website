@@ -4,13 +4,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About | neurolog</title>
+  <title>For clinicians | neurolog</title>
   <meta name="description"
-    content="A team of researchers, engineers and entrepreneurs using digital health to transform neurology care and improve data quality for research.">
+    content="A clinical portal summarising patient data over time, so clinicians can make informed decisions from more than patient recall.">
   <link rel="icon" href="assets/neurolog-logo.svg" type="image/svg+xml">
-  <meta property="og:title" content="About | neurolog">
+  <meta property="og:title" content="For clinicians | neurolog">
   <meta property="og:description"
-    content="A team of researchers, engineers and entrepreneurs using digital health to transform neurology care and improve data quality for research.">
+    content="A clinical portal summarising patient data over time, so clinicians can make informed decisions from more than patient recall.">
   <meta property="og:type" content="website">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -34,7 +34,7 @@
       <nav class="nav" aria-label="Primary">
         <a class="nav__link" href="index.html">Home</a>
         <div class="nav__group">
-          <button class="nav__link nav__toggle" type="button" data-dropdown-toggle aria-expanded="false"
+          <button class="nav__link nav__toggle is-active" type="button" data-dropdown-toggle aria-expanded="false"
             aria-controls="audience-menu">
             <span>Who it's for</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
@@ -44,11 +44,11 @@
           </button>
           <div class="nav__menu" id="audience-menu" data-dropdown-menu hidden>
             <a href="for_patients.html">For patients</a>
-            <a href="for_clinicians.html">For clinicians</a>
+            <a href="for_clinicians.html" aria-current="page">For clinicians</a>
             <a href="for_researchers.html">For researchers</a>
           </div>
         </div>
-        <a class="nav__link" href="about.html" aria-current="page">About</a>
+        <a class="nav__link" href="about.html">About</a>
       </nav>
 
       <div class="header__actions">
@@ -67,9 +67,9 @@
     <nav class="mobile-nav" id="mobile-nav" data-mobile-nav aria-label="Primary" hidden>
       <a href="index.html">Home</a>
       <a href="for_patients.html">For patients</a>
-      <a href="for_clinicians.html">For clinicians</a>
+      <a href="for_clinicians.html" aria-current="page">For clinicians</a>
       <a href="for_researchers.html">For researchers</a>
-      <a href="about.html" aria-current="page">About</a>
+      <a href="about.html">About</a>
       <a href="mailto:contact@neurologapp.com">contact@neurologapp.com</a>
     </nav>
   </header>
@@ -78,84 +78,19 @@
 
     <section class="section section--page-head">
       <div class="wrap">
-        <p class="eyebrow">About Neurolog</p>
-        <h1 class="display display--page" style="max-width:22ch">Digitally transforming neurology care.</h1>
-        <p class="lead" style="max-width:58ch">We are a team of researchers, engineers and entrepreneurs, passionate
-          about using digital health to transform neurology care and generate more objective, better quality data for
-          research. Neurolog Technologies is based in Melbourne, and our team has worked in epilepsy and other episodic
-          neurological conditions, seizure prediction and forecasting, and wearables for more than ten years.</p>
+        <p class="eyebrow eyebrow--green">For clinicians</p>
+        <h1 class="display display--page">Make informed decisions from a more complete picture.</h1>
+        <p class="lead">Our clinical portal gives you access to individual patient views, summarising patient data over
+          time, including event frequency and type, symptoms, medication adherence, stress, sleep and activity levels.
+        </p>
       </div>
     </section>
 
-    <section class="section section--rule" style="padding-block:clamp(44px,5vw,76px)">
+    <section class="section section--rule" style="padding-block:clamp(40px,5vw,72px)">
       <div class="wrap">
-        <h2 class="h2 h2--sm">Founders</h2>
-        <div class="founders">
-          <div class="founder">
-            <img src="assets/team/rachel-bw.jpg" alt="Dr Rachel Stirling">
-            <div>
-              <h3 class="h3">Dr Rachel Stirling</h3>
-              <p class="role">Co-founder and Chief Executive Officer</p>
-              <p class="body">Research lead.</p>
-            </div>
-          </div>
-          <div class="founder">
-            <img src="assets/team/michaela-bw.jpg" alt="Dr Michaela Vranic-Peters">
-            <div>
-              <h3 class="h3">Dr Michaela Vranic-Peters</h3>
-              <p class="role">Co-founder and Chief Technology Officer</p>
-              <p class="body">Software lead.</p>
-            </div>
-          </div>
-        </div>
-
-        <h2 class="h2 h2--sm" style="margin-top:clamp(40px,5vw,64px)">Clinical and research advisors</h2>
-        <div class="advisors">
-          <div class="advisor">
-            <img src="assets/team/dean-bw.jpg" alt="Dr Dean Freestone">
-            <div>
-              <h3 class="h3">Dr Dean Freestone</h3>
-              <p class="role">Advisor</p>
-            </div>
-          </div>
-          <div class="advisor">
-            <img src="assets/team/ben-bw.jpg" alt="Prof Benjamin Brinkmann">
-            <div>
-              <h3 class="h3">Prof Benjamin Brinkmann</h3>
-              <p class="role">Advisor</p>
-            </div>
-          </div>
-          <div class="advisor">
-            <img src="assets/team/pip-bw.jpg" alt="A/Prof Pip Karoly">
-            <div>
-              <h3 class="h3">A/Prof Pip Karoly</h3>
-              <p class="role">Advisor</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--rule" style="padding-block:clamp(40px,5vw,64px)">
-      <div class="wrap split">
-        <div>
-          <p class="eyebrow" style="margin-bottom:20px">Work with us</p>
-          <h2 class="h2 h2--sm" style="max-width:16ch">We would love to hear from you.</h2>
-        </div>
-        <div class="prose">
-          <p>If you are interested in collaborating with us, whether as a clinical site, a research partner or a person
-            living with an episodic neurological condition, get in touch at <a
-              href="mailto:contact@neurologapp.com">contact@neurologapp.com</a>.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section--rule" style="padding-block:clamp(40px,5vw,64px)">
-      <div class="wrap">
-        <p class="eyebrow" style="margin-bottom:24px">Partners and programs</p>
-        <div class="partners">
-          <img src="assets/MAP.png" alt="Melbourne Accelerator Program">
-        </div>
+        <figure class="figure">
+          <img src="assets/dev-clinician.png" alt="Neurolog clinician web app showing a patient summary">
+        </figure>
       </div>
     </section>
   </main>
