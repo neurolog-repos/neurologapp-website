@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="./support.js"></script>
+</head>
+
+<body>
+  <x-dc>
+    <helmet>
+      <link rel="stylesheet" href="_ds/modernist-d94693f4-d4e2-4af5-a92c-cc81bb8f8594/styles.css">
+      <script src="_ds/modernist-d94693f4-d4e2-4af5-a92c-cc81bb8f8594/_ds_bundle.js"></script>
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+      <style>
+        :root {
+          --color-bg: #f3f2f2;
+          --color-text: #201e1d;
+          --color-accent: #5b21b6;
+          --color-divider: #201e1d;
+          --font-heading: "Inter Tight", sans-serif;
+          --font-body: Inter, sans-serif;
+          --radius-md: 0px;
+        }
+
+        body {
+          margin: 0;
+          background: #f3f2f2;
+          color: #201e1d;
+          font-family: Inter, system-ui, sans-serif;
+          line-height: 1.55;
+          -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        p {
+          margin: 0;
+        }
+
+        a {
+          color: #4c1d95;
+          text-decoration: none;
+        }
+
+        a:hover {
+          color: #0d9e6e;
+        }
+
+        *:focus-visible {
+          outline: 2px solid #5b21b6;
+          outline-offset: 2px;
+        }
+
+        @keyframes nl-marquee {
+          from {
+            transform: translateX(0);
+          }
+
+          to {
+            transform: translateX(calc(-50% - 10px));
+          }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          [style*="nl-marquee"] {
+            animation: none !important;
+          }
+        }
+
+        ::selection {
+          background: rgba(91, 33, 182, .16);
+        }
+
+        input,
+        textarea,
+        button,
+        select {
+          font: inherit;
+        }
+      </style>
+    </helmet>
+
+    <div style="background:#f3f2f2;color:#201e1d;font-family:Inter,system-ui,sans-serif;min-height:100vh">
+
+      <header style="position:sticky;top:0;z-index:40;background:#f3f2f2;border-bottom:2px solid #201e1d">
+        <div
+          style="width:min(1240px,100%);margin:0 auto;padding:0 clamp(20px,5vw,56px);height:74px;display:flex;align-items:center;justify-content:space-between;gap:32px">
+          <div onClick="{{ goHome }}" style="display:flex;align-items:center;gap:10px;cursor:pointer;flex-shrink:0">
+            <img src="assets/neurolog-logo.svg" alt="Neurolog" style="display:block;width:30px;height:30px">
+            <span
+              style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">neurolog</span>
+          </div>
+          <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
+            <nav style="display:flex;align-items:center;gap:2px;margin-right:auto;min-width:0" aria-label="Primary">
+              <button onClick="{{ goHome }}" style="{{ homeStyle }}" style-hover="color:#5b21b6">Home</button>
+              <div style="position:relative;align-self:stretch;display:flex;align-items:center">
+                <button onClick="{{ toggleDropdown }}" style="{{ audienceStyle }}" style-hover="color:#5b21b6">
+                  <span>Who it's for</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"
+                    stroke-linecap="square" aria-hidden="true">
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg>
+                </button>
+                <sc-if value="{{ dropdownOpen }}">
+                  <div
+                    style="position:absolute;top:100%;left:0;min-width:236px;background:#f3f2f2;border:2px solid #201e1d;border-top:0;z-index:60">
+                    <sc-for list="{{ audienceItems }}" as="item" hint-placeholder-count="3">
+                      <button onClick="{{ item.onClick }}" style="{{ item.menuStyle }}"
+                        style-hover="color:#5b21b6;background:#ffffff">{{ item.label }}</button>
+                    </sc-for>
+                  </div>
+                </sc-if>
+              </div>
+              <button onClick="{{ goAbout }}" style="{{ aboutStyle }}" style-hover="color:#5b21b6">About</button>
+            </nav>
+          </sc-if>
+          <div style="display:flex;align-items:center;gap:10px;flex-shrink:0;margin-left:auto">
+            <sc-if value="{{ isWide }}" hint-placeholder-val="{{ true }}">
+              <a href="mailto:contact@neurologapp.com"
+                style="display:inline-flex;align-items:center;height:42px;padding:0 16px;border:1px solid #201e1d;color:#201e1d;font-size:13px;font-weight:600;white-space:nowrap;letter-spacing:.01em"
+                style-hover="background:#201e1d;color:#ffffff">Contact</a>
+            </sc-if>
+            <button onClick="{{ goWaitlist }}"
+              style="display:inline-flex;align-items:center;height:42px;padding:0 18px;border:1px solid #5b21b6;background:#5b21b6;color:#ffffff;font-size:13px;font-weight:600;white-space:nowrap;cursor:pointer;letter-spacing:.01em"
+              style-hover="background:#4c1d95;border-color:#4c1d95">Join the pilot</button>
+            <sc-if value="{{ isNarrow }}">
+              <button onClick="{{ toggleMenu }}" aria-label="Menu"
+                style="display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;padding:0;border:1px solid #201e1d;background:transparent;color:#201e1d;cursor:pointer"
+                style-hover="background:#201e1d;color:#ffffff">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                  stroke-linecap="square" aria-hidden="true">
+                  <path d="M3 6h18M3 12h18M3 18h18"></path>
+                </svg>
+              </button>
+            </sc-if>
+          </div>
+        </div>
+        <sc-if value="{{ menuOpen }}">
+          <nav style="border-top:1px solid #d8d6d4;background:#f3f2f2" aria-label="Primary">
+            <sc-for list="{{ navItems }}" as="item" hint-placeholder-count="5">
+              <button onClick="{{ item.onClick }}" style="{{ item.mobileStyle }}" style-hover="color:#5b21b6">{{
+                item.label }}</button>
+            </sc-for>
+            <a href="mailto:contact@neurologapp.com"
+              style="display:block;width:100%;padding:14px clamp(20px,5vw,56px);font-size:15px;font-weight:600;color:#3c3937;border-top:1px solid #e4e2e0">contact@neurologapp.com</a>
+          </nav>
+        </sc-if>
+      </header>
+
+      <sc-if value="{{ isHome }}" hint-placeholder-val="{{ true }}">
+        <div>
+          <section style="padding:clamp(56px,7vw,96px) clamp(20px,5vw,56px) clamp(48px,6vw,72px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <div>
+                <p
+                  style="margin:0 0 26px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                  Neurolog Technologies</p>
+                <h1
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(38px,4.6vw,62px);line-height:1.06;letter-spacing:-.035em;font-weight:600;max-width:19ch;text-wrap:pretty">
+                  Mobile and web app to monitor people with episodic brain conditions between clinic appointments</h1>
+                <p style="margin:28px 0 0;max-width:56ch;font-size:17px;line-height:1.6;color:#4a4745;text-wrap:pretty">
+                  Patients log events, medications and wearable data continuously. Clinicians and researchers see the
+                  picture that recall alone cannot give them — event frequency and type, sleep, activity, and how
+                  physiology tracked alongside symptoms.</p>
+                <div style="display:flex;flex-wrap:wrap;gap:12px;margin-top:34px">
+                  <button onClick="{{ goWaitlist }}"
+                    style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border:1px solid #5b21b6;background:#5b21b6;color:#ffffff;font-size:14px;font-weight:600;cursor:pointer"
+                    style-hover="background:#4c1d95;border-color:#4c1d95">Join the pilot waitlist</button>
+                  <button onClick="{{ goClinicians }}"
+                    style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border:1px solid #201e1d;background:transparent;color:#201e1d;font-size:14px;font-weight:600;cursor:pointer"
+                    style-hover="background:#201e1d;color:#ffffff">For clinicians and researchers</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section style="border-top:2px solid #201e1d">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+              <div onClick="{{ goPatients }}"
+                style="padding:clamp(32px,4vw,52px) clamp(20px,5vw,56px);border-right:1px solid #d8d6d4;cursor:pointer;display:flex;flex-direction:column;gap:12px"
+                style-hover="background:#ffffff">
+                <h2
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-.03em;font-weight:600">
+                  For patients</h2>
+                <p style="max-width:44ch;font-size:15px;line-height:1.6;color:#4a4745">See your own patterns between
+                  visits. Log events in seconds, keep your medication history, and connect a wearable if you use one.
+                </p>
+                <span style="margin-top:4px;font-size:14px;font-weight:600;color:#4c1d95">Read more →</span>
+              </div>
+              <div onClick="{{ goClinicians }}"
+                style="padding:clamp(32px,4vw,52px) clamp(20px,5vw,56px);border-right:1px solid #d8d6d4;cursor:pointer;display:flex;flex-direction:column;gap:12px"
+                style-hover="background:#ffffff">
+                <h2
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-.03em;font-weight:600">
+                  For clinicians</h2>
+                <p style="max-width:44ch;font-size:15px;line-height:1.6;color:#4a4745">Open a summary report before the
+                  consultation: event frequency and type, medication timeline, sleep and activity alongside symptoms.
+                </p>
+                <span style="margin-top:4px;font-size:14px;font-weight:600;color:#4c1d95">Read more →</span>
+              </div>
+              <div onClick="{{ goResearchers }}"
+                style="padding:clamp(32px,4vw,52px) clamp(20px,5vw,56px);cursor:pointer;display:flex;flex-direction:column;gap:12px"
+                style-hover="background:#ffffff">
+                <h2
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(26px,2.6vw,34px);line-height:1.12;letter-spacing:-.03em;font-weight:600">
+                  For researchers</h2>
+                <p style="max-width:44ch;font-size:15px;line-height:1.6;color:#4a4745">Longitudinal data across a
+                  cohort, with participant engagement and wearable sync visible for the whole study period.</p>
+                <span style="margin-top:4px;font-size:14px;font-weight:600;color:#4c1d95">Read more →</span>
+              </div>
+            </div>
+          </section>
+
+          <section style="border-top:2px solid #201e1d;padding:clamp(48px,6vw,88px) clamp(20px,5vw,56px)">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(28px,6vw,80px)">
+              <div>
+                <p
+                  style="margin:0 0 20px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                  The problem</p>
+                <h2
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600;max-width:16ch;text-wrap:pretty">
+                  Between appointments, nobody can see what is happening.</h2>
+              </div>
+              <div
+                style="display:flex;flex-direction:column;gap:20px;font-size:17px;line-height:1.62;color:#3c3937;max-width:62ch">
+                <p>People with epilepsy and other episodic neurological conditions are managed primarily within brief,
+                  infrequent clinic visits, where clinicians rely on patient recall — subjective, and skewed toward
+                  recent events — to interpret treatment response and disease progression.</p>
+                <p>Between appointments, neurologists have no objective picture of event frequency or treatment
+                  efficacy. The patient is left equally in the dark: unable to track their own patterns, and largely
+                  dependent on clinic visits for any active engagement with their condition.</p>
+                <p
+                  style="padding-top:20px;border-top:1px solid #d8d6d4;font-family:'Inter Tight',sans-serif;font-size:20px;line-height:1.35;letter-spacing:-.02em;color:#201e1d">
+                  Neurolog closes the loop between patient experience and objective biosignals.</p>
+              </div>
+            </div>
+          </section>
+
+          <section style="border-top:2px solid #201e1d;padding:clamp(48px,6vw,88px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 20px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                How it works</p>
+              <h2
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600;max-width:24ch;text-wrap:pretty">
+                One continuous record, from the patient's phone to the clinic room.</h2>
+              <div
+                style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:0;margin-top:44px;border-top:2px solid #201e1d">
+                <div style="padding:24px 28px 28px 0;border-right:1px solid #d8d6d4">
+                  <p
+                    style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;color:#087653">
+                    01</p>
+                  <h3
+                    style="margin:10px 0 10px;font-family:'Inter Tight',sans-serif;font-size:20px;line-height:1.2;letter-spacing:-.02em;font-weight:600">
+                    Log and sync, continuously</h3>
+                  <p style="font-size:15px;line-height:1.6;color:#4a4745">Patients record events and symptoms, keep
+                    medications up to date, and sync a wearable device in the background.</p>
+                </div>
+                <div style="padding:24px 28px 28px;border-right:1px solid #d8d6d4">
+                  <p
+                    style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;color:#087653">
+                    02</p>
+                  <h3
+                    style="margin:10px 0 10px;font-family:'Inter Tight',sans-serif;font-size:20px;line-height:1.2;letter-spacing:-.02em;font-weight:600">
+                    Assemble the summary</h3>
+                  <p style="font-size:15px;line-height:1.6;color:#4a4745">Reported events sit alongside sleep, activity
+                    and physiological signals over the same period, ready to review.</p>
+                </div>
+                <div style="padding:24px 0 28px 28px">
+                  <p
+                    style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;color:#087653">
+                    03</p>
+                  <h3
+                    style="margin:10px 0 10px;font-family:'Inter Tight',sans-serif;font-size:20px;line-height:1.2;letter-spacing:-.02em;font-weight:600">
+                    Review before the visit</h3>
+                  <p style="font-size:15px;line-height:1.6;color:#4a4745">Clinicians and researchers open a summary
+                    report the patient has authorised, and start the conversation from evidence.</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section style="border-top:2px solid #201e1d;padding:clamp(48px,6vw,88px) clamp(20px,5vw,56px) 0">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 20px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                The platform</p>
+            </div>
+            <div style="width:min(1240px,100%);margin:0 auto;padding-bottom:clamp(48px,6vw,88px);overflow:hidden">
+              <div style="display:flex;gap:20px;width:max-content;animation:nl-marquee 64s linear infinite"
+                style-hover="animation-play-state:paused">
+                <img src="assets/dev-phone-1.png" alt="Neurolog mobile app — health tracking and wearable connection"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto;scroll-snap-align:start">
+                <img src="assets/dev-phone-2.png" alt="Neurolog mobile app — logging an event"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto;scroll-snap-align:start">
+                <img src="assets/dev-phone-3.png" alt="Neurolog mobile app — event history"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto;scroll-snap-align:start">
+                <img src="assets/dev-phone-4.png" alt="Neurolog mobile app — sleep and event context"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto;scroll-snap-align:start">
+                <img src="assets/dev-clinician.png" alt="Neurolog clinician web view — patient summary"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto;scroll-snap-align:start">
+                <img src="assets/dev-researcher.png" alt="Neurolog researcher web view — study data"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto;scroll-snap-align:start">
+                <img src="assets/dev-phone-1.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-2.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-3.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-4.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-clinician.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-researcher.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+              </div>
+            </div>
+          </section>
+
+          <section
+            style="border-top:2px solid #201e1d;background:#5b21b6;color:#ffffff;padding:clamp(48px,6vw,88px) clamp(20px,5vw,56px)">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(260px,.85fr);gap:clamp(28px,6vw,72px);align-items:end">
+              <div>
+                <p
+                  style="margin:0 0 22px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#c9b6ef">
+                  Our expertise</p>
+                <h2
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(32px,4vw,54px);line-height:1.07;letter-spacing:-.035em;font-weight:600;max-width:22ch;text-wrap:pretty">
+                  10+ years in epilepsy, seizure forecasting and wearables.</h2>
+              </div>
+              <p style="font-size:16px;line-height:1.62;color:#e6dcfa;max-width:46ch">Our team has worked across
+                epilepsy and other episodic neurological conditions, seizure prediction and forecasting, and wearable
+                biosignals for more than a decade — in clinical research and in software. Neurolog is what we wanted to
+                exist while doing that work.</p>
+            </div>
+          </section>
+
+          <section style="border-top:2px solid #201e1d;padding:clamp(48px,6vw,88px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <div style="display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:16px">
+                <h2
+                  style="font-family:'Inter Tight',sans-serif;font-size:clamp(26px,2.8vw,36px);line-height:1.1;letter-spacing:-.03em;font-weight:600">
+                  The team</h2>
+                <button onClick="{{ goAbout }}"
+                  style="border:0;background:transparent;padding:0;font-size:14px;font-weight:600;color:#4c1d95;cursor:pointer"
+                  style-hover="color:#0d9e6e">Full team and advisors →</button>
+              </div>
+              <div
+                style="display:flex;gap:20px;overflow-x:auto;overflow-y:hidden;margin-top:36px;border-top:1px solid #d8d6d4;padding:28px 0 18px">
+                <div style="flex:0 0 200px">
+                  <img src="assets/team/rachel-bw.jpg" alt="Dr Rachel Stirling"
+                    style="display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1)">
+                  <h3
+                    style="margin:14px 0 4px;font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em">
+                    Dr Rachel Stirling</h3>
+                  <p style="font-size:13px;color:#5c5957">Co-founder &amp; CEO — research lead</p>
+                </div>
+                <div style="flex:0 0 200px">
+                  <img src="assets/team/michaela-bw.jpg" alt="Dr Michaela Vranic-Peters"
+                    style="display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1)">
+                  <h3
+                    style="margin:14px 0 4px;font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em">
+                    Dr Michaela Vranic-Peters</h3>
+                  <p style="font-size:13px;color:#5c5957">Co-founder &amp; CTO — software lead</p>
+                </div>
+                <div style="flex:0 0 200px">
+                  <img src="assets/team/dean-bw.jpg" alt="Dr Dean Freestone"
+                    style="display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1)">
+                  <h3
+                    style="margin:14px 0 4px;font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em">
+                    Dr Dean Freestone</h3>
+                  <p style="font-size:13px;color:#5c5957">Advisor</p>
+                </div>
+                <div style="flex:0 0 200px">
+                  <img src="assets/team/ben-bw.jpg" alt="Prof Benjamin Brinkmann"
+                    style="display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1)">
+                  <h3
+                    style="margin:14px 0 4px;font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em">
+                    Prof Benjamin Brinkmann</h3>
+                  <p style="font-size:13px;color:#5c5957">Advisor</p>
+                </div>
+                <div style="flex:0 0 200px">
+                  <img src="assets/team/pip-bw.jpg" alt="A/Prof Pip Karoly"
+                    style="display:block;width:100%;aspect-ratio:1;object-fit:cover;filter:grayscale(1)">
+                  <h3
+                    style="margin:14px 0 4px;font-family:'Inter Tight',sans-serif;font-size:17px;font-weight:600;letter-spacing:-.01em">
+                    A/Prof Pip Karoly</h3>
+                  <p style="font-size:13px;color:#5c5957">Advisor</p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section style="border-top:2px solid #201e1d;padding:clamp(40px,5vw,64px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 24px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                Partners and programs</p>
+              <div
+                style="display:flex;align-items:center;border-top:1px solid #d8d6d4;border-bottom:1px solid #d8d6d4;padding:28px 0;min-height:132px">
+                <img src="assets/MAP.png" alt="Melbourne Accelerator Program"
+                  style="display:block;width:min(170px,100%);height:auto">
+              </div>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isPatients }}">
+        <div>
+          <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 22px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#087653">
+                For patients — mobile app</p>
+              <h1
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.035em;font-weight:600;max-width:20ch;text-wrap:pretty">
+                Your own record of what is actually happening.</h1>
+              <p style="margin:26px 0 0;max-width:56ch;font-size:17px;line-height:1.62;color:#4a4745">Most of life with
+                an episodic condition happens away from the clinic. Neurolog gives you somewhere to put it — so you can
+                look back at your own patterns, and so the person treating you can see them too.</p>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+              <div style="padding:32px clamp(20px,5vw,56px);border-right:1px solid #d8d6d4">
+                <h3 style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Log an event in seconds</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Record what happened when you
+                  are able to — in the moment or later — with only as much detail as you want to give.</p>
+              </div>
+              <div style="padding:32px clamp(20px,5vw,56px);border-right:1px solid #d8d6d4">
+                <h3 style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Keep medications straight</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Track what you take and when it
+                  changed, so a change in your events can be read against a change in treatment.</p>
+              </div>
+              <div style="padding:32px clamp(20px,5vw,56px)">
+                <h3 style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Connect a wearable</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">If you already wear a device,
+                  sync it once and your sleep and activity sit alongside the events you log.</p>
+              </div>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(40px,5vw,72px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto;overflow:hidden">
+              <div style="display:flex;gap:20px;width:max-content;animation:nl-marquee 44s linear infinite"
+                style-hover="animation-play-state:paused">
+                <img src="assets/dev-phone-1.png" alt="Neurolog mobile app — health tracking and wearable connection"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-2.png" alt="Neurolog mobile app — logging an event"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-3.png" alt="Neurolog mobile app — event history"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-4.png" alt="Neurolog mobile app — sleep and event context"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-1.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-2.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-3.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+                <img src="assets/dev-phone-4.png" alt="" aria-hidden="true"
+                  style="display:block;flex:0 0 auto;height:min(62vh,480px);width:auto">
+              </div>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isClinicians }}">
+        <div>
+          <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 22px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#087653">
+                For clinicians — web app</p>
+              <h1
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.035em;font-weight:600;max-width:20ch;text-wrap:pretty">
+                Start the consultation with more than recall.</h1>
+              <p style="margin:26px 0 0;max-width:56ch;font-size:17px;line-height:1.62;color:#4a4745">One summary report
+                per patient, assembled from what they logged and what their device recorded since you last saw them —
+                event frequency and type, sleep health, activity, and how physiology tracked alongside symptoms.</p>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(40px,5vw,72px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <figure style="margin:0">
+                <img src="assets/dev-clinician.png" alt="Neurolog clinician web view showing a patient summary"
+                  style="display:block;width:100%;height:auto">
+                <figcaption style="margin-top:12px;font-size:13px;color:#5c5957">Patient summary, reviewed in one place
+                  before a consultation.</figcaption>
+              </figure>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+              <div style="padding:32px clamp(20px,5vw,56px);border-right:1px solid #d8d6d4">
+                <p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;color:#087653">01</p>
+                <h3
+                  style="margin-top:8px;font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Objective event frequency</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Counts and types over the whole
+                  interval, not the fortnight the patient happens to remember.</p>
+              </div>
+              <div style="padding:32px clamp(20px,5vw,56px);border-right:1px solid #d8d6d4">
+                <p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;color:#087653">02</p>
+                <h3
+                  style="margin-top:8px;font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Treatment response in context</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Medication changes sit on the
+                  same timeline as events, sleep and activity.</p>
+              </div>
+              <div style="padding:32px clamp(20px,5vw,56px)">
+                <p style="font-family:'Inter Tight',sans-serif;font-size:13px;font-weight:600;color:#087653">03</p>
+                <h3
+                  style="margin-top:8px;font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  No extra work in clinic</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">The patient does the logging.
+                  Your view is read-only and ready when you open it.</p>
+              </div>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(36px,4vw,56px) clamp(20px,5vw,56px)">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:20px;justify-content:space-between">
+              <p
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(20px,2.2vw,28px);line-height:1.2;letter-spacing:-.025em;max-width:34ch">
+                Tick “clinician” on the waitlist and we will contact you to book a demo.</p>
+              <button onClick="{{ goWaitlist }}"
+                style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border:1px solid #5b21b6;background:#5b21b6;color:#ffffff;font-size:14px;font-weight:600;cursor:pointer"
+                style-hover="background:#4c1d95;border-color:#4c1d95">Join the pilot waitlist</button>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isResearchers }}">
+        <div>
+          <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 22px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#087653">
+                For researchers — web app</p>
+              <h1
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.035em;font-weight:600;max-width:20ch;text-wrap:pretty">
+                Longitudinal data for the whole study period.</h1>
+              <p style="margin:26px 0 0;max-width:56ch;font-size:17px;line-height:1.62;color:#4a4745">Patient-reported
+                events and continuous wearable data, collected the same way across your cohort — with engagement and
+                completeness visible while the study is still running.</p>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(40px,5vw,72px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <figure style="margin:0">
+                <img src="assets/dev-researcher.png" alt="Neurolog researcher view showing participant study data"
+                  style="display:block;width:100%;height:auto">
+                <figcaption style="margin-top:12px;font-size:13px;color:#5c5957">Participant engagement, wearable
+                  synchronisation and data completeness across a defined study period.</figcaption>
+              </figure>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr))">
+              <div style="padding:32px clamp(20px,5vw,56px);border-right:1px solid #d8d6d4">
+                <h3 style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Configurable by condition</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Event types, symptoms and
+                  prompts are configured per study — epilepsy and PTSD configurations exist today.</p>
+              </div>
+              <div style="padding:32px clamp(20px,5vw,56px);border-right:1px solid #d8d6d4">
+                <h3 style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Compliance you can see</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Know which participants are
+                  logging and syncing before the data collection window closes.</p>
+              </div>
+              <div style="padding:32px clamp(20px,5vw,56px)">
+                <h3 style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                  Designed with lived experience</h3>
+                <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">The PTSD configuration went
+                  through a completed design-feedback study with adults who have lived experience.</p>
+              </div>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(36px,4vw,56px) clamp(20px,5vw,56px)">
+            <div
+              style="width:min(1240px,100%);margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:20px;justify-content:space-between">
+              <p
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(20px,2.2vw,28px);line-height:1.2;letter-spacing:-.025em;max-width:34ch">
+                Tick “researcher” on the waitlist and we will contact you to book a demo.</p>
+              <button onClick="{{ goWaitlist }}"
+                style="display:inline-flex;align-items:center;height:50px;padding:0 22px;border:1px solid #5b21b6;background:#5b21b6;color:#ffffff;font-size:14px;font-weight:600;cursor:pointer"
+                style-hover="background:#4c1d95;border-color:#4c1d95">Join the pilot waitlist</button>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <sc-if value="{{ isAbout }}">
+        <div>
+          <section style="padding:clamp(48px,6vw,84px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 22px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                About Neurolog</p>
+              <h1
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(34px,4.4vw,58px);line-height:1.06;letter-spacing:-.035em;font-weight:600;max-width:22ch;text-wrap:pretty">
+                A decade in epilepsy research, built into a product.</h1>
+              <p style="margin:26px 0 0;max-width:58ch;font-size:17px;line-height:1.62;color:#4a4745">Neurolog
+                Technologies is a Melbourne company building the record that sits between clinic appointments. Our team
+                has worked in epilepsy and other episodic neurological conditions, seizure prediction and forecasting,
+                and wearables for more than ten years.</p>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(44px,5vw,76px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <h2
+                style="font-family:'Inter Tight',sans-serif;font-size:clamp(24px,2.6vw,32px);line-height:1.1;letter-spacing:-.03em;font-weight:600">
+                Founders</h2>
+              <div
+                style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:clamp(24px,4vw,48px);margin-top:28px;border-top:1px solid #d8d6d4;padding-top:28px">
+                <div style="display:grid;grid-template-columns:112px minmax(0,1fr);gap:20px;align-items:start">
+                  <img src="assets/team/rachel-bw.jpg" alt="Dr Rachel Stirling"
+                    style="display:block;width:112px;height:112px;object-fit:cover;filter:grayscale(1)">
+                  <div>
+                    <h3
+                      style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                      Dr Rachel Stirling</h3>
+                    <p style="margin-top:4px;font-size:13px;font-weight:600;color:#4c1d95">Co-founder &amp; Chief
+                      Executive Officer</p>
+                    <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Research lead. Rachel sets
+                      the clinical and research direction of the platform, and runs the studies and pilots it is
+                      validated through.</p>
+                  </div>
+                </div>
+                <div style="display:grid;grid-template-columns:112px minmax(0,1fr);gap:20px;align-items:start">
+                  <img src="assets/team/michaela-bw.jpg" alt="Dr Michaela Vranic-Peters"
+                    style="display:block;width:112px;height:112px;object-fit:cover;filter:grayscale(1)">
+                  <div>
+                    <h3
+                      style="font-family:'Inter Tight',sans-serif;font-size:19px;font-weight:600;letter-spacing:-.02em">
+                      Dr Michaela Vranic-Peters</h3>
+                    <p style="margin-top:4px;font-size:13px;font-weight:600;color:#4c1d95">Co-founder &amp; Chief
+                      Technology Officer</p>
+                    <p style="margin-top:10px;font-size:15px;line-height:1.6;color:#4a4745">Software lead. Michaela owns
+                      the mobile and web applications, the wearable integrations and the data platform underneath them.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <h2
+                style="margin-top:clamp(40px,5vw,64px);font-family:'Inter Tight',sans-serif;font-size:clamp(24px,2.6vw,32px);line-height:1.1;letter-spacing:-.03em;font-weight:600">
+                Clinical and research advisors</h2>
+              <div
+                style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px;margin-top:28px;border-top:1px solid #d8d6d4;padding-top:28px">
+                <div style="display:flex;align-items:center;gap:16px">
+                  <img src="assets/team/dean-bw.jpg" alt="Dr Dean Freestone"
+                    style="display:block;width:72px;height:72px;object-fit:cover;filter:grayscale(1)">
+                  <div>
+                    <h3
+                      style="font-family:'Inter Tight',sans-serif;font-size:16px;font-weight:600;letter-spacing:-.01em">
+                      Dr Dean Freestone</h3>
+                    <p style="font-size:13px;color:#5c5957">Advisor</p>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:16px">
+                  <img src="assets/team/ben-bw.jpg" alt="Prof Benjamin Brinkmann"
+                    style="display:block;width:72px;height:72px;object-fit:cover;filter:grayscale(1)">
+                  <div>
+                    <h3
+                      style="font-family:'Inter Tight',sans-serif;font-size:16px;font-weight:600;letter-spacing:-.01em">
+                      Prof Benjamin Brinkmann</h3>
+                    <p style="font-size:13px;color:#5c5957">Advisor</p>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:16px">
+                  <img src="assets/team/pip-bw.jpg" alt="A/Prof Pip Karoly"
+                    style="display:block;width:72px;height:72px;object-fit:cover;filter:grayscale(1)">
+                  <div>
+                    <h3
+                      style="font-family:'Inter Tight',sans-serif;font-size:16px;font-weight:600;letter-spacing:-.01em">
+                      A/Prof Pip Karoly</h3>
+                    <p style="font-size:13px;color:#5c5957">Advisor</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section style="border-top:2px solid #201e1d;padding:clamp(40px,5vw,64px) clamp(20px,5vw,56px)">
+            <div style="width:min(1240px,100%);margin:0 auto">
+              <p
+                style="margin:0 0 24px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+                Partners and programs</p>
+              <div
+                style="display:flex;align-items:center;border-top:1px solid #d8d6d4;border-bottom:1px solid #d8d6d4;padding:28px 0;min-height:132px">
+                <img src="assets/MAP.png" alt="Melbourne Accelerator Program"
+                  style="display:block;width:min(170px,100%);height:auto">
+              </div>
+            </div>
+          </section>
+        </div>
+      </sc-if>
+
+      <section id="waitlist" style="border-top:2px solid #201e1d;padding:clamp(48px,6vw,88px) clamp(20px,5vw,56px)">
+        <div
+          style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(0,.9fr) minmax(320px,.8fr);gap:clamp(32px,6vw,80px);align-items:start">
+          <div>
+            <p
+              style="margin:0 0 20px;font-size:12px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b21b6">
+              Pilot waitlist</p>
+            <h2
+              style="font-family:'Inter Tight',sans-serif;font-size:clamp(30px,3.4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:600;max-width:18ch;text-wrap:pretty">
+              Join the pilot waitlist.</h2>
+            <p style="margin-top:22px;max-width:50ch;font-size:16px;line-height:1.62;color:#4a4745">Tell us which side
+              of the platform you would use. If you are a clinician or researcher, we will contact you to book a demo of
+              the web app. If you are a patient, we will let you know when the mobile pilot opens in your area.</p>
+            <p style="margin-top:22px;padding-top:20px;border-top:1px solid #d8d6d4;font-size:15px;color:#4a4745">
+              General enquiries — <a href="mailto:contact@neurologapp.com"
+                style="font-weight:600">contact@neurologapp.com</a></p>
+          </div>
+          <form onSubmit="{{ onSubmit }}"
+            style="display:grid;gap:18px;background:#ffffff;border:2px solid #201e1d;padding:clamp(22px,3vw,32px)">
+            <label
+              style="display:grid;gap:7px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3c3937">Name
+              <input name="name" required autocomplete="name"
+                style="width:100%;padding:12px;border:1px solid #c8c6c4;background:#f8f8f7;color:#201e1d;font-size:15px;font-weight:400;letter-spacing:0;text-transform:none">
+            </label>
+            <label
+              style="display:grid;gap:7px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3c3937">Email
+              <input name="email" type="email" required autocomplete="email"
+                style="width:100%;padding:12px;border:1px solid #c8c6c4;background:#f8f8f7;color:#201e1d;font-size:15px;font-weight:400;letter-spacing:0;text-transform:none">
+            </label>
+            <label
+              style="display:grid;gap:7px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3c3937">Organisation
+              (optional)
+              <input name="organisation" autocomplete="organization"
+                style="width:100%;padding:12px;border:1px solid #c8c6c4;background:#f8f8f7;color:#201e1d;font-size:15px;font-weight:400;letter-spacing:0;text-transform:none">
+            </label>
+            <fieldset style="margin:0;padding:0;border:0;display:grid;gap:9px">
+              <legend
+                style="padding:0;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3c3937">
+                I am interested as a</legend>
+              <sc-for list="{{ roles }}" as="role" hint-placeholder-count="3">
+                <label style="{{ role.style }}" style-hover="border-color:#5b21b6">
+                  <input type="checkbox" checked="{{ role.checked }}" onChange="{{ role.onChange }}"
+                    style="width:16px;height:16px;margin:0;accent-color:#5b21b6">
+                  <span style="font-size:14px;font-weight:600">{{ role.label }}</span>
+                </label>
+              </sc-for>
+            </fieldset>
+            <label
+              style="display:grid;gap:7px;font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:#3c3937">Message
+              (optional)
+              <textarea name="message" placeholder="Please do not include personal health information."
+                style="width:100%;min-height:88px;resize:vertical;padding:12px;border:1px solid #c8c6c4;background:#f8f8f7;color:#201e1d;font-size:15px;font-weight:400;letter-spacing:0;text-transform:none"></textarea>
+            </label>
+            <button type="submit"
+              style="display:inline-flex;align-items:center;justify-content:flex-start;height:50px;padding:0 22px;border:1px solid #5b21b6;background:#5b21b6;color:#ffffff;font-size:14px;font-weight:600;cursor:pointer"
+              style-hover="background:#4c1d95;border-color:#4c1d95">{{ submitLabel }}</button>
+            <sc-if value="{{ sent }}">
+              <p
+                style="margin:0;padding:12px 14px;background:#e7f6f0;border-left:3px solid #0d9e6e;font-size:14px;color:#075c41">
+                Thanks — we have your enquiry and will be in touch.</p>
+            </sc-if>
+            <p style="margin:0;font-size:12px;line-height:1.5;color:#5c5957">By submitting, you agree that Neurolog may
+              contact you about the pilot.</p>
+          </form>
+        </div>
+      </section>
+
+      <footer style="border-top:2px solid #201e1d;padding:clamp(32px,4vw,48px) clamp(20px,5vw,56px)">
+        <div
+          style="width:min(1240px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:32px;align-items:start">
+          <div>
+            <div style="display:flex;align-items:center;gap:9px">
+              <img src="assets/neurolog-logo.svg" alt="" style="display:block;width:24px;height:24px">
+              <span
+                style="font-family:'Inter Tight',sans-serif;font-size:16px;font-weight:600;letter-spacing:-.02em">neurolog</span>
+            </div>
+            <p style="margin-top:14px;max-width:34ch;font-size:13px;line-height:1.55;color:#5c5957">Mobile and web app
+              to monitor people with episodic brain conditions between clinic appointments.</p>
+          </div>
+          <nav style="display:grid;gap:8px;justify-items:start" aria-label="Footer">
+            <button onClick="{{ goPatients }}"
+              style="border:0;background:transparent;padding:0;font-size:13px;color:#3c3937;cursor:pointer;text-align:left"
+              style-hover="color:#5b21b6">For patients</button>
+            <button onClick="{{ goClinicians }}"
+              style="border:0;background:transparent;padding:0;font-size:13px;color:#3c3937;cursor:pointer;text-align:left"
+              style-hover="color:#5b21b6">For clinicians</button>
+            <button onClick="{{ goResearchers }}"
+              style="border:0;background:transparent;padding:0;font-size:13px;color:#3c3937;cursor:pointer;text-align:left"
+              style-hover="color:#5b21b6">For researchers</button>
+            <button onClick="{{ goAbout }}"
+              style="border:0;background:transparent;padding:0;font-size:13px;color:#3c3937;cursor:pointer;text-align:left"
+              style-hover="color:#5b21b6">About</button>
+          </nav>
+          <div style="display:grid;gap:8px;justify-items:start">
+            <a href="mailto:contact@neurologapp.com" style="font-size:13px;color:#3c3937">contact@neurologapp.com</a>
+            <span style="font-size:13px;color:#5c5957">Melbourne, Australia</span>
+          </div>
+          <p style="max-width:38ch;font-size:12px;line-height:1.55;color:#5c5957">For tracking and reflection, not
+            diagnosis. Neurolog does not detect events, alert anyone, predict events, diagnose conditions, or recommend
+            treatment.</p>
+        </div>
+        <div
+          style="width:min(1240px,100%);margin:28px auto 0;padding-top:18px;border-top:1px solid #d8d6d4;font-size:12px;color:#8b8886">
+          © 2026 Neurolog Technologies Pty Ltd</div>
+      </footer>
+
+    </div>
+  </x-dc>
+  <script type="text/x-dc" data-dc-script
+    data-props="{&quot;accentColor&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#5b21b6&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#5b21b6&quot;,&quot;#4c1d95&quot;,&quot;#0d9e6e&quot;,&quot;#201e1d&quot;],&quot;section&quot;:&quot;Brand&quot;}}">
+class Component extends DCLogic {
+  state = { page: 'home', roles: [], sending: false, sent: false, width: 1200, menuOpen: false, dropdownOpen: false };
+
+  componentDidMount() {
+    this.onResize = () => this.setState({ width: window.innerWidth });
+    this.onResize();
+    window.addEventListener('resize', this.onResize);
+    this.onDocClick = (e) => {
+      if (this.state.dropdownOpen && !(e.target.closest && e.target.closest('header'))) {
+        this.setState({ dropdownOpen: false });
+      }
+    };
+    document.addEventListener('click', this.onDocClick);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+    document.removeEventListener('click', this.onDocClick);
+  }
+
+  go(page) {
+    this.setState({ page, menuOpen: false, dropdownOpen: false });
+    if (typeof window !== 'undefined') window.scrollTo({ top: 0 });
+  }
+
+  toggleRole(value) {
+    this.setState(s => ({
+      roles: s.roles.indexOf(value) === -1 ? s.roles.concat([value]) : s.roles.filter(r => r !== value)
+    }));
+  }
+
+  scrollToWaitlist() {
+    const el = document.getElementById('waitlist');
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 74, behavior: 'smooth' });
+  }
+
+  async submit(e) {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const data = new FormData(form);
+    data.set('role', this.state.roles.join(', '));
+    this.setState({ sending: true });
+    try {
+      await fetch(form.dataset.endpoint || 'https://script.google.com/macros/s/AKfycbyO3mH7UJep3t6mjUDk4katPtxSs61r3gtTsoOOkSbrUFx1Hm-JHIMvttgNu5FZzJGq/exec',
+        { method: 'POST', mode: 'no-cors', body: new URLSearchParams(data) });
+      form.reset();
+      this.setState({ sending: false, sent: true, roles: [] });
+    } catch (err) {
+      this.setState({ sending: false, sent: true, roles: [] });
+    }
+  }
+
+  renderVals() {
+    const page = this.state.page;
+    const accent = this.props.accentColor ?? '#5b21b6';
+    const navDef = [
+      { key: 'home', label: 'Home' },
+      { key: 'patients', label: 'For patients' },
+      { key: 'clinicians', label: 'For clinicians' },
+      { key: 'researchers', label: 'For researchers' },
+      { key: 'about', label: 'About' }
+    ];
+    const roleDef = [
+      { value: 'Patient', label: 'Patient' },
+      { value: 'Clinician', label: 'Clinician' },
+      { value: 'Researcher', label: 'Researcher' }
+    ];
+    const wide = this.state.width >= 1020;
+    const audienceKeys = ['patients', 'clinicians', 'researchers'];
+    const isAudience = audienceKeys.indexOf(page) !== -1;
+    const navStyle = (active) => 'border:0;background:transparent;padding:8px 11px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;letter-spacing:-.005em;color:'
+      + (active ? accent : '#3c3937')
+      + ';box-shadow:' + (active ? 'inset 0 -2px 0 0 ' + accent : 'none');
+    return {
+      isWide: wide,
+      isNarrow: !wide,
+      menuOpen: !wide && this.state.menuOpen,
+      toggleMenu: () => this.setState(s => ({ menuOpen: !s.menuOpen })),
+      dropdownOpen: wide && this.state.dropdownOpen,
+      toggleDropdown: () => this.setState(s => ({ dropdownOpen: !s.dropdownOpen })),
+      homeStyle: navStyle(page === 'home'),
+      aboutStyle: navStyle(page === 'about'),
+      audienceStyle: navStyle(isAudience) + ';display:inline-flex;align-items:center;gap:6px',
+      audienceItems: navDef.filter(n => audienceKeys.indexOf(n.key) !== -1).map(n => ({
+        label: n.label,
+        onClick: () => this.go(n.key),
+        menuStyle: 'display:block;width:100%;text-align:left;border:0;border-bottom:1px solid #d8d6d4;background:transparent;padding:13px 16px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;color:'
+          + (page === n.key ? accent : '#3c3937')
+      })),
+      isHome: page === 'home',
+      isPatients: page === 'patients',
+      isClinicians: page === 'clinicians',
+      isResearchers: page === 'researchers',
+      isAbout: page === 'about',
+      goHome: () => this.go('home'),
+      goPatients: () => this.go('patients'),
+      goClinicians: () => this.go('clinicians'),
+      goResearchers: () => this.go('researchers'),
+      goAbout: () => this.go('about'),
+      goWaitlist: () => this.scrollToWaitlist(),
+      navItems: navDef.map(n => ({
+        label: n.label,
+        onClick: () => this.go(n.key),
+        style: 'border:0;background:transparent;padding:8px 11px;font-size:14px;font-weight:600;cursor:pointer;white-space:nowrap;letter-spacing:-.005em;color:'
+          + (page === n.key ? accent : '#3c3937')
+          + ';box-shadow:' + (page === n.key ? 'inset 0 -2px 0 0 ' + accent : 'none'),
+        mobileStyle: 'display:block;width:100%;text-align:left;border:0;border-top:1px solid #e4e2e0;background:transparent;padding:14px clamp(20px,5vw,56px);font-size:15px;font-weight:600;cursor:pointer;color:'
+          + (page === n.key ? accent : '#3c3937')
+      })),
+      roles: roleDef.map(r => ({
+        label: r.label,
+        checked: this.state.roles.indexOf(r.value) !== -1,
+        onChange: () => this.toggleRole(r.value),
+        style: 'display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid '
+          + (this.state.roles.indexOf(r.value) !== -1 ? accent : '#c8c6c4')
+          + ';background:' + (this.state.roles.indexOf(r.value) !== -1 ? '#f4efff' : '#ffffff')
+          + ';cursor:pointer;text-transform:none;letter-spacing:0'
+      })),
+      submitLabel: this.state.sending ? 'Submitting…' : 'Join the pilot waitlist',
+      sent: this.state.sent,
+      onSubmit: (e) => this.submit(e)
+    };
+  }
+}
+</script>
+</body>
+
+</html>
