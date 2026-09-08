@@ -19,7 +19,8 @@
   <meta property="og:image" content="https://neurologapp.com/assets/social-preview.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="NeuroLog: Understand what happens between appointments. Phone showing the app beside a smartwatch.">
+  <meta property="og:image:alt"
+    content="NeuroLog: Understand what happens between appointments. Phone showing the app beside a smartwatch.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://neurologapp.com/assets/social-preview.jpg">
   <meta name="twitter:image:alt" content="NeuroLog: Understand what happens between appointments.">
@@ -97,8 +98,8 @@
         <div class="prose">
           <p>The clinical dashboard is designed for use during the appointment, even if you are signing in for the
             first time when your patient arrives.</p>
-          <p>Open a connected patient's record. Choose the date of their last appointment or any range of interest
-            to review periods of change or stability together.</p>
+          <p>Open a connected patient's record. Choose the date of their last appointment or any range of interest,
+            and review their data together.</p>
         </div>
       </div>
     </section>
@@ -109,7 +110,10 @@
         <div class="data-table-wrap" tabindex="0" role="region" aria-labelledby="clinical-summary">
           <table class="data-table" aria-labelledby="clinical-summary">
             <thead>
-              <tr><th scope="col">Area</th><th scope="col">Summary</th></tr>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">What you see</th>
+              </tr>
             </thead>
             <tbody>
               <tr>
@@ -118,21 +122,21 @@
               </tr>
               <tr>
                 <th scope="row">Medication adherence</th>
-                <td>Recorded doses against the expected schedule for the selected period, with recording gaps
-                  distinguished from missed doses.</td>
+                <td>Recorded doses against the expected schedule for the selected period.</td>
               </tr>
               <tr>
                 <th scope="row">Sleep</th>
-                <td>Sleep duration and reported quality over time, including sustained changes and periods of poorer
-                  sleep.</td>
+                <td>Sleep duration, timing and quality, including periods of poorer
+                  sleep and their association with event timing.</td>
+              </tr>
+              <tr>
+                <th scope="row">Heart rate</th>
+                <td>Daily and overnight heart rate, circadian rhythms, and heart rate variability, to explore patterns
+                  physiological patterns over time.</td>
               </tr>
               <tr>
                 <th scope="row">Activity</th>
-                <td>Activity levels alongside logged events, to explore patterns with the patient.</td>
-              </tr>
-              <tr>
-                <th scope="row">Data coverage</th>
-                <td>Available days and data sources, with gaps in recording clearly visible.</td>
+                <td>Activity levels and movement data, to explore patterns over time.</td>
               </tr>
             </tbody>
           </table>
@@ -144,10 +148,10 @@
       <div class="wrap reading-width product-section">
         <h2 class="h2">The patient decides what to share.</h2>
         <div class="prose">
-          <p>Sharing controls let patients choose categories: for example, share sleep data with their healthcare
-            team but keep personal notes private. Summaries support the patient's own account and your clinical
-            judgement.</p>
-          <p><a href="for_patients.html">Explore the patient app</a> · <a href="privacy.html">Privacy and security</a></p>
+          <p>Patients control what they share with their healthcare
+            team.</p>
+          <p><a href="for_patients.html">Explore the patient app</a> · <a href="privacy.html">Privacy and security</a>
+          </p>
         </div>
       </div>
     </section>
@@ -158,7 +162,8 @@
       <div>
 
         <h2 class="h2">Join the pilot waitlist.</h2>
-        <p class="lead" style="max-width:50ch;font-size:16px">For clinical services, research teams and people interested in the app. Register your interest and we will be in touch about the pilot.</p>
+        <p class="lead" style="max-width:50ch;font-size:16px">For clinical services, research teams and people
+          interested in the app. Register your interest and we will be in touch about the pilot.</p>
         <p class="waitlist__note">General enquiries: <a href="mailto:contact@neurologapp.com"
             style="font-weight:600">contact@neurologapp.com</a></p>
       </div>
@@ -178,12 +183,15 @@
           <label class="check"><input type="checkbox" name="role" value="Patient"><span>Patient</span></label>
           <label class="check"><input type="checkbox" name="role" value="Clinician"><span>Clinician</span></label>
           <label class="check"><input type="checkbox" name="role" value="Researcher"><span>Researcher</span></label>
+          <label class="check"><input type="checkbox" name="role" value="Other"><span>Other (provide more information
+              below)</span></label>
         </fieldset>
         <label>Message (optional)
           <textarea name="message" placeholder="Please do not include personal health information."></textarea>
         </label>
         <button class="btn" type="submit">Join the pilot waitlist</button>
-        <p class="form__ok" data-waitlist-confirmation role="status" aria-live="polite" hidden>Your enquiry has been sent. We will be in touch about the pilot.</p>
+        <p class="form__ok" data-waitlist-confirmation role="status" aria-live="polite" hidden>Your enquiry has been
+          sent. We will be in touch about the pilot.</p>
         <p class="form__fine">By submitting, you agree that NeuroLog may contact you about the pilot. See our <a
             href="privacy.html">Privacy Policy</a>.</p>
       </form>
