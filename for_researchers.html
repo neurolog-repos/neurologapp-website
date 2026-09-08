@@ -6,22 +6,23 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Longitudinal neurological research data | NeuroLog</title>
   <meta name="description"
-    content="Explore longitudinal neurological event and wearable data with NeuroLog, including cohort and participant views for research teams.">
+    content="Longitudinal neurological event and wearable data, with cohort review, data curation and documented exports for Python and MATLAB research workflows.">
   <link rel="canonical" href="https://neurologapp.com/for_researchers.html">
   <meta property="og:url" content="https://neurologapp.com/for_researchers.html">
   <meta property="og:site_name" content="NeuroLog">
   <meta property="og:locale" content="en_AU">
   <link rel="icon" href="assets/neurolog-logo.svg" type="image/svg+xml">
-  <meta property="og:title"
-    content="Longitudinal neurological research data | NeuroLog">
+  <meta property="og:title" content="Longitudinal neurological research data | NeuroLog">
   <meta property="og:description"
-    content="Explore longitudinal neurological event and wearable data with NeuroLog, including cohort and participant views for research teams.">
+    content="Longitudinal neurological event and wearable data, with cohort review, data curation and documented exports for Python and MATLAB research workflows.">
   <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
-    rel="stylesheet">
+  <meta property="og:image" content="https://neurologapp.com/assets/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="NeuroLog: Understand what happens between appointments. Phone showing the app beside a smartwatch.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://neurologapp.com/assets/social-preview.jpg">
+  <meta name="twitter:image:alt" content="NeuroLog: Understand what happens between appointments.">
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/site.js" defer></script>
 </head>
@@ -32,7 +33,7 @@
   <header class="site-header">
     <div class="site-header__bar">
       <a class="brand" href="index.html">
-        <img src="assets/neurolog-logo.svg" alt="">
+        <img src="assets/neurolog-logo.svg" alt="" width="30" height="30" decoding="async">
         <span>NeuroLog</span>
       </a>
 
@@ -81,39 +82,96 @@
   </header>
 
   <main id="main">
-
     <section class="section section--page-head">
-      <div class="wrap">
-        <p class="eyebrow eyebrow--green">For researchers</p>
-        <h1 class="display display--page">Higher-quality longitudinal data for neurology research.</h1>
-        <p class="lead">Cohort-level and individual participant views, with
-          engagement and completeness visible while data collection is still running.</p>
+      <div class="wrap reading-width page-intro">
+        <h1 class="display display--page">From collection to research.</h1>
+        <p class="lead">Longitudinal wearable data with timestamped event and symptom records. NeuroLog brings
+          collection, time alignment and export into one workflow, reducing the preparation research teams need to
+          manage.</p>
+        <div class="btn-row"><a class="btn" href="#waitlist">Discuss a research pilot</a></div>
       </div>
     </section>
 
-    <section class="section section--rule" style="padding-block:clamp(40px,5vw,72px)">
-      <div class="wrap">
-        <figure class="figure">
-          <img src="assets/dev-researcher.png" alt="NeuroLog researcher web app showing participant study data">
-        </figure>
+    <section class="section section--rule">
+      <div class="wrap reading-width product-section">
+        <h2 class="h2">Review data across your cohort.</h2>
+        <div class="prose">
+          <p>The research dashboard is designed for studies that follow participants over months and years. Tables
+            organised by coded participant IDs bring long-term records together, with individual views for closer
+            review.</p>
+          <p>Select participants, date ranges and data streams. Check coverage and recording gaps while collection
+            is running, then choose the measures and time resolution your analysis needs.</p>
+        </div>
       </div>
     </section>
 
+    <section class="section soft-section">
+      <div class="wrap reading-width product-section">
+        <h2 class="h2" id="research-data">The context behind each measurement.</h2>
+        <div class="data-table-wrap" tabindex="0" role="region" aria-labelledby="research-data">
+          <table class="data-table" aria-labelledby="research-data">
+            <thead>
+              <tr><th scope="col">Data detail</th><th scope="col">Included context</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Event timing</th>
+                <td>When an event happened and when it was logged, including entries added later.</td>
+              </tr>
+              <tr>
+                <th scope="row">Dates and frequency</th>
+                <td>Date ranges, time zones, available sampling intervals and any aggregation applied.</td>
+              </tr>
+              <tr>
+                <th scope="row">Sources and units</th>
+                <td>Measurement sources, units and field definitions, distinguishing wearable data from participant
+                  reports.</td>
+              </tr>
+              <tr>
+                <th scope="row">Completeness</th>
+                <td>Coverage for each participant and data stream, with gaps and missing values visible.</td>
+              </tr>
+              <tr>
+                <th scope="row">Export settings</th>
+                <td>Selected participants, measures, dates and processing choices, documented with the dataset.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap reading-width product-section">
+        <h2 class="h2">Keep your Python or MATLAB workflow.</h2>
+        <div class="prose">
+          <p>Export documented tables for your existing analysis tools. Data curation handles time alignment,
+            consistent fields and source information, so you spend less time joining device files and reconciling
+            columns by hand.</p>
+          <p>Available measures and time resolution depend on the connected sources. We work with study teams to
+            match collection and export options to their methods.</p>
+        </div>
+        <h2 class="h2">Consent guides access.</h2>
+        <div class="prose">
+          <p>Research participation is a separate choice. Access follows the study's consent and permissions, with
+            coded participant IDs used in research views.</p>
+          <p><a href="about.html">Meet our research team</a> · <a href="privacy.html">Privacy and security</a></p>
+        </div>
+      </div>
+    </section>
   </main>
 
   <section class="section section--rule" id="waitlist">
     <div class="wrap waitlist">
       <div>
-        <p class="eyebrow">Pilot waitlist</p>
+
         <h2 class="h2">Join the pilot waitlist.</h2>
-        <p class="lead" style="max-width:50ch;font-size:16px">Tell us which side of the platform you would use. If you
-          are a clinician or researcher, we will be in touch to book a demo of the web app. If you are a patient, we
-          will let you know when the mobile app is available.</p>
+        <p class="lead" style="max-width:50ch;font-size:16px">For clinical services, research teams and people interested in the app. Register your interest and we will be in touch about the pilot.</p>
         <p class="waitlist__note">General enquiries: <a href="mailto:contact@neurologapp.com"
             style="font-weight:600">contact@neurologapp.com</a></p>
       </div>
 
-      <form class="form" data-waitlist-form novalidate="false">
+      <form class="form" data-waitlist-form>
         <label>Name
           <input type="text" name="name" required autocomplete="name">
         </label>
@@ -133,7 +191,7 @@
           <textarea name="message" placeholder="Please do not include personal health information."></textarea>
         </label>
         <button class="btn" type="submit">Join the pilot waitlist</button>
-        <p class="form__ok" data-waitlist-confirmation hidden>Thanks, we have your enquiry and will be in touch.</p>
+        <p class="form__ok" data-waitlist-confirmation role="status" aria-live="polite" hidden>Your enquiry has been sent. We will be in touch about the pilot.</p>
         <p class="form__fine">By submitting, you agree that NeuroLog may contact you about the pilot. See our <a
             href="privacy.html">Privacy Policy</a>.</p>
       </form>
@@ -144,11 +202,10 @@
     <div class="site-footer__grid">
       <div>
         <div class="brand">
-          <img src="assets/neurolog-logo.svg" alt="">
+          <img src="assets/neurolog-logo.svg" alt="" width="30" height="30" decoding="async">
           <span>NeuroLog</span>
         </div>
-        <p class="site-footer__blurb">Mobile and web app for monitoring people with episodic brain conditions between
-          clinic appointments.</p>
+        <p class="site-footer__blurb">A mobile app and web portal for patients, clinicians and researchers.</p>
       </div>
 
       <nav aria-label="Footer">

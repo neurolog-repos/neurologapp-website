@@ -53,25 +53,6 @@
     });
   }
 
-  function confirmationFor(roles) {
-    var patient = roles.indexOf('Patient') !== -1;
-    var demo =
-      roles.indexOf('Clinician') !== -1 || roles.indexOf('Researcher') !== -1;
-
-    if (patient && demo) {
-      return 'Thanks for your enquiry. We will be in touch once our mobile app is ' +
-        'available for pilot testing, and to organise a demo.';
-    }
-    if (patient) {
-      return 'Thanks for your enquiry. We will be in touch once our mobile app is ' +
-        'available for pilot testing.';
-    }
-    if (demo) {
-      return 'Thanks for your enquiry. We will be in touch to organise a demo.';
-    }
-    return 'Thanks for your enquiry. We will be in touch.';
-  }
-
   function setupWaitlistForm() {
     var form = document.querySelector('[data-waitlist-form]');
     if (!form) return;
@@ -82,12 +63,14 @@
 
     form.addEventListener('submit', function (e) {
       e.preventDefault();
+      if (!form.reportValidity()) return;
+      if (button && button.disabled) return;
+      if (confirmation) confirmation.hidden = true;
 
       var data = new FormData(form);
       var roles = data.getAll('role');
       data.delete('role');
       data.set('role', roles.join(', '));
-      var message = confirmationFor(roles);
 
       if (button) {
         button.disabled = true;
@@ -99,15 +82,23 @@
         mode: 'no-cors',
         body: new URLSearchParams(data)
       })
-        .catch(function () {
-          /* no-cors gives us an opaque response, so treat any outcome as sent */
-        })
         .then(function () {
-          form.reset();
           if (confirmation) {
-            confirmation.textContent = message;
+            // A completed request indicates sending; do not claim confirmed backend receipt.
+            confirmation.textContent = 'Your enquiry has been sent. We will be in touch about the pilot.';
+            confirmation.removeAttribute('data-error');
             confirmation.hidden = false;
           }
+        })
+        .catch(function () {
+          if (confirmation) {
+            confirmation.textContent = 'We could not send your enquiry. Check your connection and try again, ' +
+              'or email contact@neurologapp.com. Your details are still in the form.';
+            confirmation.setAttribute('data-error', 'true');
+            confirmation.hidden = false;
+          }
+        })
+        .finally(function () {
           if (button) {
             button.disabled = false;
             button.textContent = label;
