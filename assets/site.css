@@ -1094,12 +1094,12 @@ select {
 
 /* Product pages share the lavender, sage and open spacing of the print work. */
 .section--hero { background: #ded8ee; }
-.hero-grid { display: grid; grid-template-columns: 1.12fr .88fr; gap: clamp(32px, 5vw, 72px); align-items: center; }
-.hero-grid .display { font-size: clamp(42px, 5.3vw, 72px); max-width: 15ch; }
+.hero-copy .display { font-size: clamp(42px, 5.3vw, 72px); max-width: 19ch; }
 .display span { color: var(--accent); }
-.hero-grid .lead { max-width: 43ch; font-size: 20px; }
-.hero-photo { width: 100%; max-width: 450px; margin-left: auto; }
-.hero-photo img { width: 100%; height: auto; border-radius: 12px 12px 110px 12px; }
+.hero-copy .lead { max-width: 64ch; font-size: 20px; }
+.appointment-layout { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); max-width: 1040px; gap: clamp(32px, 5vw, 64px); align-items: center; }
+.appointment-photo { display: block; width: 100%; max-width: 420px; margin-left: auto; }
+.appointment-photo img { width: 100%; height: auto; border-radius: 12px 12px 80px 12px; }
 .hero-note { margin-top: 20px; max-width: 48ch; color: var(--ink-3); font-size: 15px; }
 .btn, .header__contact, .menu-btn { border-radius: 6px; }
 .form { border-radius: 10px; }
@@ -1162,10 +1162,10 @@ select {
 :target { scroll-margin-top: calc(var(--header-h) + 24px); }
 
 @media (max-width: 860px) {
-  .hero-grid, .founder-story { grid-template-columns: 1fr; }
-  .hero-grid .display { max-width: 18ch; }
-  .hero-photo { max-width: 420px; margin: 0; }
-  .hero-photo img { border-bottom-right-radius: 80px; }
+  .appointment-layout, .founder-story { grid-template-columns: 1fr; }
+  .hero-copy .display { max-width: 18ch; }
+  .appointment-layout { max-width: 820px; }
+  .appointment-photo { margin: 0; }
   .workflow-list { grid-template-columns: 1fr; gap: 24px; }
   .detail-grid { gap: 28px; }
 }
