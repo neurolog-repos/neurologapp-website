@@ -762,6 +762,7 @@ select {
 
 .partners {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   min-height: 132px;
   padding: 28px 0;
@@ -771,6 +772,7 @@ select {
 
 .partners img {
   width: min(170px, 100%);
+  max-width: 100%;
   height: auto;
 }
 
@@ -1212,5 +1214,16 @@ select {
 
   .legal-nav {
     position: static;
+  }
+}
+
+@media (max-width: 360px) {
+  .site-header__bar,
+  .header__actions {
+    gap: 8px;
+  }
+
+  .header__actions .btn--sm {
+    padding-inline: 8px;
   }
 }
