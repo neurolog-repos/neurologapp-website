@@ -4,6 +4,8 @@ This branch contains the proposed website design and copy. The SEO update is alr
 
 The homepage opens with the headline and original description of seizures, intrusions and migraines. The phone photo sits in “Ready for the next appointment”: beside the copy on desktop and after it on phones. Founders’ photography stays on About.
 
+The homepage title is “NeuroLog | Neurological tracking | Developed in Melbourne”. The health connection copy names compatible Samsung Health data through Health Connect. A research FAQ explains that app use does not automatically enrol anyone in a study and that participation requires consent.
+
 The design uses Source Sans 3 with the approved lavender and sage palette, concise product copy, app screenshots, and short clinical/research tables. Navigation retains the audience pages and About, with Support, Privacy, Terms and Delete account in the footer. Pilot enquiries still use the existing service.
 
 ## Open the full site
