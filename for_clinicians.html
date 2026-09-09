@@ -6,22 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neurological patient summaries for clinicians | NeuroLog</title>
   <meta name="description"
-    content="Review patient-reported neurological events, symptoms and wearable data over time with NeuroLog clinical summaries for the appointment.">
+    content="NeuroLog clinical summaries bring neurological events, symptoms, medication, sleep and activity into the appointment, with patient-controlled sharing.">
   <link rel="canonical" href="https://neurologapp.com/for_clinicians.html">
   <meta property="og:url" content="https://neurologapp.com/for_clinicians.html">
   <meta property="og:site_name" content="NeuroLog">
   <meta property="og:locale" content="en_AU">
   <link rel="icon" href="assets/neurolog-logo.svg" type="image/svg+xml">
-  <meta property="og:title"
-    content="Neurological patient summaries for clinicians | NeuroLog">
+  <meta property="og:title" content="Neurological patient summaries for clinicians | NeuroLog">
   <meta property="og:description"
-    content="Review patient-reported neurological events, symptoms and wearable data over time with NeuroLog clinical summaries for the appointment.">
+    content="NeuroLog clinical summaries bring neurological events, symptoms, medication, sleep and activity into the appointment, with patient-controlled sharing.">
   <meta property="og:type" content="website">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&amp;family=Inter:wght@400;500;600;700&amp;display=swap"
-    rel="stylesheet">
+  <meta property="og:image" content="https://neurologapp.com/assets/social-preview.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt"
+    content="NeuroLog: Understand what happens between appointments. Phone showing the app beside a smartwatch.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://neurologapp.com/assets/social-preview.jpg">
+  <meta name="twitter:image:alt" content="NeuroLog: Understand what happens between appointments.">
   <link rel="stylesheet" href="assets/site.css">
   <script src="assets/site.js" defer></script>
 </head>
@@ -32,7 +34,7 @@
   <header class="site-header">
     <div class="site-header__bar">
       <a class="brand" href="index.html">
-        <img src="assets/neurolog-logo.svg" alt="">
+        <img src="assets/neurolog-logo.svg" alt="" width="30" height="30" decoding="async">
         <span>NeuroLog</span>
       </a>
 
@@ -81,22 +83,76 @@
   </header>
 
   <main id="main">
-
     <section class="section section--page-head">
-      <div class="wrap">
-        <p class="eyebrow eyebrow--green">For clinicians</p>
-        <h1 class="display display--page">Make informed decisions from a more complete picture.</h1>
-        <p class="lead">Our clinical portal gives you access to individual patient views, summarising patient data over
-          time, including event frequency and type, symptoms, medication adherence, stress, sleep and activity levels.
-        </p>
+      <div class="wrap reading-width page-intro">
+        <h1 class="display display--page">Ready for the next appointment.</h1>
+        <p class="lead">Track events, symptoms and medication alongside sleep and activity. NeuroLog provides concise
+          summaries for patients and clinicians to review together.</p>
+        <div class="btn-row"><a class="btn" href="#waitlist">Discuss a clinical pilot</a></div>
       </div>
     </section>
 
-    <section class="section section--rule" style="padding-block:clamp(40px,5vw,72px)">
-      <div class="wrap">
-        <figure class="figure">
-          <img src="assets/dev-clinician.png" alt="NeuroLog clinician web app showing a patient summary">
-        </figure>
+    <section class="section section--rule">
+      <div class="wrap reading-width product-section">
+        <h2 class="h2">Review the period that matters.</h2>
+        <div class="prose">
+          <p>The clinical dashboard is designed for use during the appointment, even if you are signing in for the
+            first time when your patient arrives.</p>
+          <p>Open a connected patient's record. Choose the date of their last appointment or any range of interest,
+            and review their data together.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section soft-section">
+      <div class="wrap reading-width product-section">
+        <h2 class="h2" id="clinical-summary">Patient summaries at a glance.</h2>
+        <div class="data-table-wrap" tabindex="0" role="region" aria-labelledby="clinical-summary">
+          <table class="data-table" aria-labelledby="clinical-summary">
+            <thead>
+              <tr>
+                <th scope="col"></th>
+                <th scope="col">What you see</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">Events and symptoms</th>
+                <td>Event frequency, timing and type, alongside changes in reported symptoms.</td>
+              </tr>
+              <tr>
+                <th scope="row">Medication adherence</th>
+                <td>Recorded doses against the expected schedule for the selected period.</td>
+              </tr>
+              <tr>
+                <th scope="row">Sleep</th>
+                <td>Sleep duration, timing and quality, including periods of poorer
+                  sleep and their association with event timing.</td>
+              </tr>
+              <tr>
+                <th scope="row">Heart rate</th>
+                <td>Daily and overnight heart rate, circadian rhythms, and heart rate variability, to explore
+                  physiological patterns over time.</td>
+              </tr>
+              <tr>
+                <th scope="row">Activity</th>
+                <td>Activity levels and movement data, to explore patterns over time.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap reading-width product-section">
+        <h2 class="h2">The patient decides what to share.</h2>
+        <div class="prose">
+          <p>Patients control what they share with their healthcare
+            team.</p>
+          <p><a href="for_patients.html">Explore the patient app</a> · <a href="privacy.html">Privacy and security</a>
+          </p>
+        </div>
       </div>
     </section>
   </main>
@@ -104,16 +160,15 @@
   <section class="section section--rule" id="waitlist">
     <div class="wrap waitlist">
       <div>
-        <p class="eyebrow">Pilot waitlist</p>
+
         <h2 class="h2">Join the pilot waitlist.</h2>
-        <p class="lead" style="max-width:50ch;font-size:16px">Tell us which side of the platform you would use. If you
-          are a clinician or researcher, we will be in touch to book a demo of the web app. If you are a patient, we
-          will let you know when the mobile app is available.</p>
+        <p class="lead" style="max-width:50ch;font-size:16px">For clinical services, research teams and people
+          interested in the app. Register your interest and we will be in touch about the pilot.</p>
         <p class="waitlist__note">General enquiries: <a href="mailto:contact@neurologapp.com"
             style="font-weight:600">contact@neurologapp.com</a></p>
       </div>
 
-      <form class="form" data-waitlist-form novalidate="false">
+      <form class="form" data-waitlist-form>
         <label>Name
           <input type="text" name="name" required autocomplete="name">
         </label>
@@ -128,12 +183,15 @@
           <label class="check"><input type="checkbox" name="role" value="Patient"><span>Patient</span></label>
           <label class="check"><input type="checkbox" name="role" value="Clinician"><span>Clinician</span></label>
           <label class="check"><input type="checkbox" name="role" value="Researcher"><span>Researcher</span></label>
+          <label class="check"><input type="checkbox" name="role" value="Other"><span>Other (provide more information
+              below)</span></label>
         </fieldset>
         <label>Message (optional)
           <textarea name="message" placeholder="Please do not include personal health information."></textarea>
         </label>
         <button class="btn" type="submit">Join the pilot waitlist</button>
-        <p class="form__ok" data-waitlist-confirmation hidden>Thanks, we have your enquiry and will be in touch.</p>
+        <p class="form__ok" data-waitlist-confirmation role="status" aria-live="polite" hidden>Your enquiry has been
+          sent. We will be in touch about the pilot.</p>
         <p class="form__fine">By submitting, you agree that NeuroLog may contact you about the pilot. See our <a
             href="privacy.html">Privacy Policy</a>.</p>
       </form>
@@ -144,11 +202,10 @@
     <div class="site-footer__grid">
       <div>
         <div class="brand">
-          <img src="assets/neurolog-logo.svg" alt="">
+          <img src="assets/neurolog-logo.svg" alt="" width="30" height="30" decoding="async">
           <span>NeuroLog</span>
         </div>
-        <p class="site-footer__blurb">Mobile and web app for monitoring people with episodic brain conditions between
-          clinic appointments.</p>
+        <p class="site-footer__blurb">A mobile app and web portal for patients, clinicians and researchers.</p>
       </div>
 
       <nav aria-label="Footer">
