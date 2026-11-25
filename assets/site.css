@@ -1111,6 +1111,7 @@ select {
 .product-section .prose { max-width: none; }
 .product-section .prose + .h2 { margin-top: 44px; }
 .product-section .data-table-wrap { margin-top: 0; }
+.product-section .status-note + .prose { margin-top: 28px; }
 .page-intro .display { max-width: 23ch; }
 .page-intro .lead { max-width: 64ch; font-size: 20px; }
 .status-note { margin-top: 22px; max-width: 70ch; font-size: 16px; color: var(--ink-3); }
